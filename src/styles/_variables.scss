@@ -1,0 +1,46 @@
+// Color tokens — 2016-era blue-grey palette
+$color-nav-bg:          #37474f;
+$color-nav-text:        rgba(255, 255, 255, 0.87);
+$color-primary:         #455a64;
+$color-primary-dark:    #263238;
+$color-accent:          #26a69a;
+$color-warn:            #e53935;
+
+$color-surface:         #ffffff;
+$color-background:      #f5f5f5;
+$color-border:          #cfd8dc;
+$color-border-light:    #e0e0e0;
+
+$color-header-bg:       #eceff1;
+$color-row-alt:         #fafafa;
+$color-row-hover:       #e3f2fd;
+
+$color-text-primary:    #37474f;
+$color-text-secondary:  #607d8b;
+$color-text-muted:      #90a4ae;
+
+// Status colours
+$status-draft:          (#eceff1, #607d8b);
+$status-pending:        (#e3f2fd, #1565c0);
+$status-approved:       (#fff3e0, #e65100);
+$status-complete:       (#e8f5e9, #2e7d32);
+$status-rejected:       (#ffebee, #c62828);
+$status-active:         (#e8f5e9, #2e7d32);
+$status-inactive:       (#eceff1, #607d8b);
+
+// Spacing
+$space-xs:  4px;
+$space-sm:  8px;
+$space-md:  16px;
+$space-lg:  24px;
+$space-xl:  32px;
+
+// Layout
+$nav-height:    64px;
+$page-padding:  24px;
+
+// Breakpoints
+$bp-sm:  576px;
+$bp-md:  768px;
+$bp-lg:  992px;
+$bp-xl:  1200px;

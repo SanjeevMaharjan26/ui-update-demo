@@ -1,0 +1,87 @@
+<nx-page-header
+  title="{{ product?.name || 'Product Detail' }}"
+  [breadcrumbs]="[
+    { label: 'Home', route: '/dashboard' },
+    { label: 'Inventory' },
+    { label: 'Products', route: '/inventory/products' },
+    { label: product?.sku || '' }
+  ]">
+  <div actions>
+    <button mat-raised-button color="primary" (click)="save()">
+      <mat-icon>save</mat-icon> Save Changes
+    </button>
+    <button mat-stroked-button (click)="cancel()">Cancel</button>
+  </div>
+</nx-page-header>
+
+<div class="page-content" *ngIf="form">
+  <mat-tab-group [(selectedIndex)]="activeTab" class="detail-tabs">
+    <mat-tab label="Details">
+      <div class="tab-content">
+        <form [formGroup]="form">
+          <div class="form-grid">
+            <nx-form-field label="SKU" [required]="true">
+              <input matInput formControlName="sku" />
+            </nx-form-field>
+            <nx-form-field label="Product Name" [required]="true">
+              <input matInput formControlName="name" />
+            </nx-form-field>
+            <nx-form-field label="Category" [required]="true">
+              <mat-select formControlName="category">
+                <mat-option value="Bearings">Bearings</mat-option>
+                <mat-option value="Seals">Seals</mat-option>
+                <mat-option value="Fasteners">Fasteners</mat-option>
+                <mat-option value="Motors">Motors</mat-option>
+                <mat-option value="Piping">Piping</mat-option>
+                <mat-option value="Lubricants">Lubricants</mat-option>
+                <mat-option value="Safety">Safety</mat-option>
+                <mat-option value="Electronics">Electronics</mat-option>
+              </mat-select>
+            </nx-form-field>
+            <nx-form-field label="Status" [required]="true">
+              <mat-select formControlName="status">
+                <mat-option value="active">Active</mat-option>
+                <mat-option value="inactive">Inactive</mat-option>
+                <mat-option value="draft">Draft</mat-option>
+              </mat-select>
+            </nx-form-field>
+            <nx-form-field label="Unit Price">
+              <input matInput type="number" formControlName="unitPrice" />
+            </nx-form-field>
+            <nx-form-field label="Reorder Level">
+              <input matInput type="number" formControlName="reorderLevel" />
+            </nx-form-field>
+            <nx-form-field label="Supplier">
+              <input matInput formControlName="supplier" />
+            </nx-form-field>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Stock">
+      <div class="tab-content">
+        <div class="stock-info">
+          <div class="stock-stat">
+            <span class="stock-stat__label">Current Stock</span>
+            <span class="stock-stat__value">{{ product?.stockQty }}</span>
+          </div>
+          <div class="stock-stat">
+            <span class="stock-stat__label">Reorder Level</span>
+            <span class="stock-stat__value">{{ product?.reorderLevel }}</span>
+          </div>
+          <div class="stock-stat">
+            <span class="stock-stat__label">Status</span>
+            <nx-status-chip [status]="product!.stockQty > product!.reorderLevel ? 'active' : 'pending'"></nx-status-chip>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="History">
+      <div class="tab-content">
+        <p class="text-muted">No history records available for this product.</p>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

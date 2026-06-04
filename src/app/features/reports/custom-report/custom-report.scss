@@ -1,0 +1,18 @@
+.page-content { padding: 20px 24px; }
+.custom-layout { display: grid; grid-template-columns: 280px 1fr; gap: 16px; }
+.fields-panel { height: fit-content; }
+.field-list { display: flex; flex-direction: column; gap: 2px; }
+.field-item { display: flex; align-items: center; gap: 10px; padding: 8px; cursor: pointer; border: 1px solid transparent; border-radius: 2px;
+  &:hover { background: #eceff1; }
+  &.selected { background: #e3f2fd; border-color: #90caf9; }
+  mat-icon { color: #78909c; font-size: 20px; height: 20px; width: 20px; }
+  .field-label { display: block; font-size: 13px; color: #263238; }
+  .field-module { display: block; font-size: 11px; color: #90a4ae; }
+}
+.preview-hint { font-size: 12px; color: #78909c; margin-bottom: 8px; }
+.preview-table-wrapper { overflow-x: auto; border: 1px solid #cfd8dc; }
+.preview-table { width: 100%; border-collapse: collapse; font-size: 13px;
+  th { background: #eceff1; padding: 8px 12px; text-align: left; font-size: 11px; text-transform: uppercase; border: 1px solid #cfd8dc; white-space: nowrap; }
+  td { padding: 6px 12px; border: 1px solid #e0e0e0; }
+  tr:nth-child(even) td { background: #fafafa; }
+}

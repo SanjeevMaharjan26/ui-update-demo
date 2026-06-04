@@ -1,0 +1,9 @@
+.page-content { padding: 20px 24px; }
+.section-spacer { margin-bottom: 16px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 20px; max-width: 700px; }
+.toggle-list { display: flex; flex-direction: column; }
+.toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+.toggle-info { display: flex; flex-direction: column; gap: 2px; }
+.toggle-label { font-size: 14px; color: #263238; font-weight: 500; }
+.toggle-desc { font-size: 12px; color: #607d8b; }
+.saved-msg { color: #2e7d32; font-size: 13px; font-weight: 500; margin-left: 8px; }

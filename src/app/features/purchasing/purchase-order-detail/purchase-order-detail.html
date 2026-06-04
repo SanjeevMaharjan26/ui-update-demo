@@ -1,0 +1,30 @@
+<nx-page-header [title]="order?.poNumber || 'Purchase Order'"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Purchasing' }, { label: 'Purchase Orders', route: '/purchasing/orders' }, { label: order?.poNumber || '' }]">
+  <div actions *ngIf="order">
+    <nx-status-chip [status]="order.status"></nx-status-chip>
+    <button mat-raised-button color="primary" (click)="approve()" *ngIf="order.status === 'pending'"><mat-icon>check_circle</mat-icon> Approve</button>
+    <button mat-stroked-button color="warn" (click)="reject()" *ngIf="order.status === 'pending'"><mat-icon>cancel</mat-icon> Reject</button>
+    <button mat-stroked-button><mat-icon>print</mat-icon> Print</button>
+  </div>
+</nx-page-header>
+
+<div class="page-content" *ngIf="form && order">
+  <nx-card title="Order Information" class="section-spacer">
+    <form [formGroup]="form">
+      <div class="form-grid">
+        <nx-form-field label="Supplier"><input matInput formControlName="supplierName" /></nx-form-field>
+        <nx-form-field label="Order Date"><input matInput formControlName="orderDate" /></nx-form-field>
+        <nx-form-field label="Expected Delivery"><input matInput formControlName="expectedDate" /></nx-form-field>
+        <nx-form-field label="Notes"><input matInput formControlName="notes" /></nx-form-field>
+      </div>
+    </form>
+  </nx-card>
+
+  <nx-card title="Line Items" class="section-spacer">
+    <nx-table [columns]="lineColumns" [data]="order.lines"></nx-table>
+    <div class="totals-footer">
+      <span class="total-label">Total Amount:</span>
+      <span class="total-value">{{ order.totalAmount | currency }}</span>
+    </div>
+  </nx-card>
+</div>

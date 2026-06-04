@@ -1,0 +1,22 @@
+<nx-page-header title="Purchase Orders" subtitle="Manage all purchase orders"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Purchasing' }, { label: 'Purchase Orders' }]">
+</nx-page-header>
+<div class="page-content">
+  <nx-action-bar>
+    <button mat-raised-button color="primary"><mat-icon>add</mat-icon> New PO</button>
+    <button mat-stroked-button><mat-icon>download</mat-icon> Export</button>
+    <span class="flex-1"></span>
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Status</mat-label>
+      <mat-select>
+        <mat-option value="">All</mat-option>
+        <mat-option value="draft">Draft</mat-option>
+        <mat-option value="pending">Pending</mat-option>
+        <mat-option value="approved">Approved</mat-option>
+        <mat-option value="received">Received</mat-option>
+        <mat-option value="rejected">Rejected</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </nx-action-bar>
+  <nx-data-grid [columns]="columns" [data]="orders" [showSearch]="true" searchPlaceholder="Search by PO number or supplier…" [pageSize]="10"></nx-data-grid>
+</div>

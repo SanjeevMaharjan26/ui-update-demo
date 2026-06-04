@@ -1,0 +1,7 @@
+<div class="contacts-panel">
+  <div class="contacts-header">
+    <button mat-raised-button color="primary" size="small"><mat-icon>person_add</mat-icon> Add Contact</button>
+  </div>
+  <nx-table [columns]="columns" [data]="contacts"></nx-table>
+  <nx-empty-state *ngIf="contacts.length === 0" message="No contacts added yet" icon="contacts"></nx-empty-state>
+</div>

@@ -1,0 +1,6 @@
+.page-content { padding: 20px 24px; }
+.section-spacer { margin-bottom: 16px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 20px; max-width: 700px; }
+.totals-footer { display: flex; justify-content: flex-end; gap: 16px; padding: 12px; border-top: 1px solid #e0e0e0; margin-top: 4px; }
+.total-label { font-size: 13px; color: #607d8b; align-self: center; }
+.total-value { font-size: 18px; font-weight: 500; color: #263238; }

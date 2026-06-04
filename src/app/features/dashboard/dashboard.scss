@@ -1,0 +1,102 @@
+.dashboard {
+  padding: 20px 24px;
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+
+    @media (max-width: 992px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 576px) { grid-template-columns: 1fr; }
+  }
+
+  .kpi-card {
+    background: white;
+    border: 1px solid #cfd8dc;
+    border-top: 3px solid #455a64;
+    border-radius: 0;
+
+    &__body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px;
+    }
+
+    .kpi-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #78909c;
+      margin-bottom: 6px;
+    }
+
+    .kpi-value {
+      display: block;
+      font-size: 28px;
+      font-weight: 300;
+      color: #263238;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .kpi-trend {
+      display: flex;
+      align-items: center;
+      font-size: 11px;
+      gap: 2px;
+
+      mat-icon { font-size: 14px; height: 14px; width: 14px; }
+
+      &--up      { color: #2e7d32; }
+      &--down    { color: #c62828; }
+      &--neutral { color: #78909c; }
+    }
+
+    .kpi-icon {
+      font-size: 40px;
+      height: 40px;
+      width: 40px;
+      opacity: 0.2;
+    }
+  }
+
+  .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+
+    @media (max-width: 768px) { grid-template-columns: 1fr; }
+  }
+
+  .chart-placeholder {
+    height: 200px;
+    background: #f5f5f5;
+    border: 1px dashed #b0bec5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #90a4ae;
+    gap: 8px;
+
+    mat-icon { font-size: 36px; height: 36px; width: 36px; }
+    span { font-size: 12px; }
+  }
+
+  .quick-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .quick-action-btn {
+    mat-icon { margin-right: 6px; font-size: 18px; height: 18px; width: 18px; }
+  }
+
+  .section-spacer { margin-bottom: 20px; }
+}

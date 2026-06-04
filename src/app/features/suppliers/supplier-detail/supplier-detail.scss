@@ -1,0 +1,8 @@
+.page-content { padding: 20px 24px; }
+.detail-tabs { background: white; border: 1px solid #cfd8dc; }
+.tab-content { padding: 20px; }
+.form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 20px; max-width: 700px; }
+.perf-stats { display: flex; gap: 48px; }
+.perf-stat { display: flex; flex-direction: column; gap: 8px; }
+.perf-label { font-size: 12px; color: #607d8b; text-transform: uppercase; }
+.perf-value { font-size: 28px; font-weight: 300; color: #263238; }

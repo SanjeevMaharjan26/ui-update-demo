@@ -1,0 +1,25 @@
+<mat-toolbar class="top-nav">
+  <a class="brand" routerLink="/dashboard">NEXUS ERP</a>
+  <span class="spacer"></span>
+
+  <nav class="nav-links">
+    <app-nav-item *ngFor="let item of navItems" [item]="item"></app-nav-item>
+  </nav>
+
+  <button mat-icon-button class="icon-btn" [matBadge]="notificationCount" matBadgeColor="warn" matBadgeSize="small" aria-label="Notifications">
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <div class="user-avatar" [matMenuTriggerFor]="userMenu" matRipple>
+    {{ currentUser.initials }}
+  </div>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>person</mat-icon> Profile
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <mat-icon>logout</mat-icon> Sign Out
+    </button>
+  </mat-menu>
+</mat-toolbar>

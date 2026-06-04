@@ -1,0 +1,14 @@
+.page-content { padding: 20px 24px; }
+.report-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.report-card {
+  display: flex; align-items: center; gap: 16px; background: white;
+  border: 1px solid #cfd8dc; padding: 16px; text-decoration: none; cursor: pointer;
+  border-left: 3px solid #455a64; transition: border-color 0.15s, background 0.15s;
+  &:hover { background: #eceff1; border-left-color: #26a69a; }
+  &__icon { mat-icon { font-size: 32px; height: 32px; width: 32px; color: #78909c; } }
+  &__body { flex: 1; }
+  &__arrow { color: #b0bec5; }
+  .report-cat { font-size: 10px; text-transform: uppercase; color: #90a4ae; letter-spacing: 0.5px; }
+  .report-title { font-size: 14px; font-weight: 500; color: #263238; margin: 2px 0 4px; }
+  .report-desc { font-size: 12px; color: #607d8b; margin: 0; }
+}

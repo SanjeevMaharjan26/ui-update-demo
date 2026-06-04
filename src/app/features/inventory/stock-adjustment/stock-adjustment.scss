@@ -1,0 +1,4 @@
+.page-content { padding: 20px 24px; }
+.layout-split { display: grid; grid-template-columns: 380px 1fr; gap: 20px; @media (max-width: 768px) { grid-template-columns: 1fr; } }
+.form-card form { display: flex; flex-direction: column; gap: 4px; }
+.form-actions { display: flex; gap: 8px; margin-top: 8px; }

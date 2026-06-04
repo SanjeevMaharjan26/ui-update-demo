@@ -1,0 +1,25 @@
+.nx-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  color: #90a4ae;
+  text-align: center;
+
+  .empty-icon {
+    font-size: 52px;
+    height: 52px;
+    width: 52px;
+    margin-bottom: 16px;
+    color: #b0bec5;
+  }
+
+  .empty-message {
+    font-size: 14px;
+    margin: 0 0 16px;
+    color: #78909c;
+  }
+
+  .empty-action { margin-top: 4px; }
+}

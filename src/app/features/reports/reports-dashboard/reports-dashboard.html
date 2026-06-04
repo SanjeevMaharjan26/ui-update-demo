@@ -1,0 +1,20 @@
+<nx-page-header title="Reports" subtitle="Generate and export operational reports"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Reports' }]">
+</nx-page-header>
+<div class="page-content">
+  <div class="report-grid">
+    @for (card of reportCards; track card.title) {
+      <a class="report-card" [routerLink]="card.route">
+        <div class="report-card__icon">
+          <mat-icon>{{ card.icon }}</mat-icon>
+        </div>
+        <div class="report-card__body">
+          <span class="report-cat">{{ card.category }}</span>
+          <h3 class="report-title">{{ card.title }}</h3>
+          <p class="report-desc">{{ card.description }}</p>
+        </div>
+        <mat-icon class="report-card__arrow">chevron_right</mat-icon>
+      </a>
+    }
+  </div>
+</div>

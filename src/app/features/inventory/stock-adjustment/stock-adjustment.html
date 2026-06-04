@@ -1,0 +1,58 @@
+<nx-page-header
+  title="Stock Adjustments"
+  subtitle="Manually adjust inventory quantities"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Inventory' }, { label: 'Adjustments' }]">
+</nx-page-header>
+
+<div class="page-content">
+  <div class="layout-split">
+    <nx-card title="New Adjustment" class="form-card">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <nx-form-field label="Product" [required]="true">
+          <mat-select formControlName="productId">
+            <mat-option value="1">SKU-00100 — Industrial Bearing 6205</mat-option>
+            <mat-option value="2">SKU-00101 — Hydraulic Seal Kit A4</mat-option>
+            <mat-option value="3">SKU-00102 — Steel Hex Bolt M12x50</mat-option>
+            <mat-option value="10">SKU-00109 — Filter Element F200</mat-option>
+          </mat-select>
+        </nx-form-field>
+
+        <nx-form-field label="Adjustment Type" [required]="true">
+          <mat-select formControlName="type">
+            <mat-option value="increase">Increase</mat-option>
+            <mat-option value="decrease">Decrease</mat-option>
+          </mat-select>
+        </nx-form-field>
+
+        <nx-form-field label="Quantity" [required]="true">
+          <input matInput type="number" formControlName="quantity" min="1" />
+        </nx-form-field>
+
+        <nx-form-field label="Reason" [required]="true">
+          <mat-select formControlName="reason">
+            @for (r of reasons; track r) {
+              <mat-option [value]="r">{{ r }}</mat-option>
+            }
+          </mat-select>
+        </nx-form-field>
+
+        <nx-form-field label="Notes">
+          <textarea matInput formControlName="notes" rows="3"></textarea>
+        </nx-form-field>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+            <mat-icon>check</mat-icon> Submit Adjustment
+          </button>
+          <button mat-stroked-button type="reset">Reset</button>
+        </div>
+      </form>
+    </nx-card>
+
+    <div class="history-panel">
+      <nx-card title="Recent Adjustments">
+        <nx-table [columns]="columns" [data]="adjustments"></nx-table>
+      </nx-card>
+    </div>
+  </div>
+</div>

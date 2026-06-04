@@ -1,0 +1,54 @@
+.nx-page-header {
+  background: #eceff1;
+  padding: 12px 24px 14px;
+  border-bottom: 1px solid #cfd8dc;
+  margin-bottom: 0;
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 0;
+
+    .crumb-link {
+      color: #1976d2;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+
+    .crumb-text { color: #607d8b; }
+
+    .crumb-sep {
+      font-size: 14px;
+      height: 14px;
+      width: 14px;
+      line-height: 14px;
+      color: #90a4ae;
+      margin: 0 2px;
+    }
+
+    .crumb-current { color: #546e7a; font-weight: 500; }
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .page-title {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    color: #263238;
+    line-height: 1.2;
+  }
+
+  .page-subtitle {
+    font-size: 13px;
+    color: #607d8b;
+    margin: 4px 0 0;
+  }
+}

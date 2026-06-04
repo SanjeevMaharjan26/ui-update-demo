@@ -1,0 +1,26 @@
+<nx-page-header title="Audit Log" subtitle="System-wide user action history"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Settings' }, { label: 'Audit Log' }]">
+</nx-page-header>
+<div class="page-content">
+  <nx-card title="Filters" class="section-spacer">
+    <form [formGroup]="form">
+      <div class="filter-row">
+        <nx-form-field label="User"><input matInput formControlName="user" placeholder="Filter by user…" /></nx-form-field>
+        <nx-form-field label="Module">
+          <mat-select formControlName="module">
+            <mat-option value="">All Modules</mat-option>
+            <mat-option value="Inventory">Inventory</mat-option>
+            <mat-option value="Purchasing">Purchasing</mat-option>
+            <mat-option value="Suppliers">Suppliers</mat-option>
+            <mat-option value="Settings">Settings</mat-option>
+          </mat-select>
+        </nx-form-field>
+        <nx-form-field label="From Date"><input matInput formControlName="dateFrom" /></nx-form-field>
+        <nx-form-field label="To Date"><input matInput formControlName="dateTo" /></nx-form-field>
+        <button mat-stroked-button type="button"><mat-icon>filter_list</mat-icon> Apply</button>
+        <button mat-stroked-button type="button"><mat-icon>download</mat-icon> Export</button>
+      </div>
+    </form>
+  </nx-card>
+  <nx-table [columns]="columns" [data]="entries"></nx-table>
+</div>

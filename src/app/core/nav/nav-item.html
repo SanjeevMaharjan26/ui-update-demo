@@ -1,0 +1,21 @@
+<div class="nav-item-wrap">
+  <button mat-button class="nav-item" [class.nav-item--open]="isOpen" (click)="toggle()">
+    {{ item.label }}
+    <mat-icon>{{ isOpen ? 'arrow_drop_up' : 'arrow_drop_down' }}</mat-icon>
+  </button>
+
+  <ng-container *ngIf="isOpen">
+    <!-- Full-screen backdrop — click anywhere outside closes the dropdown -->
+    <div class="dropdown-backdrop" (click)="close()"></div>
+
+    <div class="dropdown-panel">
+      <a
+        *ngFor="let child of item.children"
+        class="dropdown-link"
+        [routerLink]="child.route"
+        routerLinkActive="dropdown-link--active">
+        {{ child.label }}
+      </a>
+    </div>
+  </ng-container>
+</div>

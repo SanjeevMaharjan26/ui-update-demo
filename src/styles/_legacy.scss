@@ -1,0 +1,81 @@
+// Legacy overrides — deliberately flatten/densify Angular Material M3
+// to approximate 2016-era Material Design look
+
+// Flatten cards: remove M3 rounded corners + elevation
+.mat-mdc-card {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #cfd8dc;
+}
+
+// Flatten form fields: square corners
+.mat-mdc-form-field {
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__trailing {
+    border-radius: 0 !important;
+  }
+  .mdc-text-field--outlined {
+    border-radius: 0 !important;
+  }
+}
+
+// Flatten buttons: no rounded pill shape
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button {
+  border-radius: 2px !important;
+  letter-spacing: 0.3px;
+}
+
+// Flatten chips: square corners
+.mat-mdc-chip {
+  border-radius: 2px !important;
+}
+
+// Dense table rows
+.mat-mdc-table {
+  .mat-mdc-header-row { min-height: 36px !important; }
+  .mat-mdc-row        { min-height: 36px !important; }
+}
+
+// Toolbar: remove default shadow
+.mat-toolbar {
+  box-shadow: none !important;
+}
+
+// Tabs: legacy style underline
+.mat-mdc-tab-header {
+  border-bottom: 1px solid #cfd8dc;
+}
+
+// Paginator: compact
+.mat-mdc-paginator {
+  font-size: 12px !important;
+  background: #fafafa;
+  border-top: 1px solid #cfd8dc;
+}
+
+// Select panel: no rounded corners
+.mat-mdc-select-panel {
+  border-radius: 0 !important;
+}
+
+// Menu: slight square
+.mat-mdc-menu-panel {
+  border-radius: 2px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+}
+
+// Slide toggle: legacy size
+.mat-mdc-slide-toggle { font-size: 14px; }
+
+// Dialog: square corners
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 0 !important;
+}
+
+// Snackbar: flat
+.mat-mdc-snack-bar-container {
+  border-radius: 2px !important;
+}

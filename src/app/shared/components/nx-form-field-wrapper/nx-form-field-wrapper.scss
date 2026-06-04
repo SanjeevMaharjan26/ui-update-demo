@@ -1,0 +1,13 @@
+.nx-form-field {
+  width: 100%;
+
+  .req-mark { color: #e53935; }
+
+  // Flatten outline corners for legacy look
+  ::ng-deep {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__trailing {
+      border-radius: 0 !important;
+    }
+  }
+}

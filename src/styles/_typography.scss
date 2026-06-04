@@ -1,0 +1,35 @@
+// Typography — Roboto loaded via index.html
+$font-family-base: 'Roboto', sans-serif;
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-base;
+  font-weight: 400;
+  color: #37474f;
+  margin: 0 0 8px;
+}
+
+h1 { font-size: 20px; }
+h2 { font-size: 18px; }
+h3 { font-size: 16px; font-weight: 500; }
+h4 { font-size: 14px; font-weight: 500; }
+
+p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #546e7a;
+  margin: 0 0 8px;
+}
+
+a {
+  color: #1976d2;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #607d8b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

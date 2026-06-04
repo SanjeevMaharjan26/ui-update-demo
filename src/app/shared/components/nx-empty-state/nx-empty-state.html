@@ -1,0 +1,7 @@
+<div class="nx-empty-state">
+  <mat-icon class="empty-icon">{{ icon }}</mat-icon>
+  <p class="empty-message">{{ message }}</p>
+  <button *ngIf="actionLabel" mat-stroked-button class="empty-action">
+    {{ actionLabel }}
+  </button>
+</div>

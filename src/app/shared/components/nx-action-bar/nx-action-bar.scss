@@ -1,0 +1,11 @@
+:host { display: block; }
+
+.nx-action-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}

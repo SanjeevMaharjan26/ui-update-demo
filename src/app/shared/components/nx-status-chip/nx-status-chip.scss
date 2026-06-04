@@ -1,0 +1,19 @@
+.nx-status-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+
+  &.nx-status--draft    { background: #eceff1; color: #607d8b; }
+  &.nx-status--pending  { background: #e3f2fd; color: #1565c0; }
+  &.nx-status--approved { background: #fff3e0; color: #e65100; }
+  &.nx-status--complete { background: #e8f5e9; color: #2e7d32; }
+  &.nx-status--received { background: #e8f5e9; color: #2e7d32; }
+  &.nx-status--rejected { background: #ffebee; color: #c62828; }
+  &.nx-status--active   { background: #e8f5e9; color: #2e7d32; }
+  &.nx-status--inactive { background: #eceff1; color: #607d8b; }
+}

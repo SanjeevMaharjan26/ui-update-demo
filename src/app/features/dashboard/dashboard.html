@@ -1,0 +1,60 @@
+<nx-page-header
+  title="Dashboard"
+  [breadcrumbs]="[{ label: 'Home' }, { label: 'Dashboard' }]">
+</nx-page-header>
+
+<div class="page-content dashboard">
+
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    @for (card of kpiCards; track card.label) {
+      <div class="kpi-card" [style.border-top-color]="card.color">
+        <div class="kpi-card__body">
+          <div class="kpi-card__info">
+            <span class="kpi-label">{{ card.label }}</span>
+            <span class="kpi-value">{{ card.value }}</span>
+            <span class="kpi-trend" [ngClass]="'kpi-trend--' + card.trend">
+              <mat-icon>{{ card.trend === 'up' ? 'trending_up' : card.trend === 'down' ? 'trending_down' : 'trending_flat' }}</mat-icon>
+              {{ card.trendValue }}
+            </span>
+          </div>
+          <mat-icon class="kpi-icon" [style.color]="card.color">{{ card.icon }}</mat-icon>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Charts row -->
+  <div class="charts-row">
+    <nx-card title="Inventory Trend (Last 6 Months)" class="chart-card">
+      <div class="chart-placeholder chart-placeholder--line">
+        <mat-icon>show_chart</mat-icon>
+        <span>Line chart — connect your charting library here</span>
+      </div>
+    </nx-card>
+    <nx-card title="Purchasing by Category" class="chart-card">
+      <div class="chart-placeholder chart-placeholder--bar">
+        <mat-icon>bar_chart</mat-icon>
+        <span>Bar chart — connect your charting library here</span>
+      </div>
+    </nx-card>
+  </div>
+
+  <!-- Quick actions -->
+  <nx-card title="Quick Actions" class="section-spacer">
+    <div class="quick-actions">
+      @for (action of quickActions; track action.label) {
+        <button mat-raised-button [routerLink]="action.route" class="quick-action-btn">
+          <mat-icon>{{ action.icon }}</mat-icon>
+          {{ action.label }}
+        </button>
+      }
+    </div>
+  </nx-card>
+
+  <!-- Recent Activity -->
+  <nx-card title="Recent Activity">
+    <nx-table [columns]="activityColumns" [data]="recentActivity"></nx-table>
+  </nx-card>
+
+</div>

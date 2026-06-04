@@ -1,0 +1,62 @@
+// All @use rules must come first
+@use '@angular/material' as mat;
+@use 'styles/typography';
+@use 'styles/legacy';
+@use 'styles/tables';
+
+// Angular Material M3 theme — customised toward blue-grey palette
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$cyan-palette,
+      ),
+      typography: Roboto,
+      density: -1,
+    )
+  );
+
+  // Override M3 primary tokens to blue-grey
+  --mat-sys-primary:             #455a64;
+  --mat-sys-on-primary:          #ffffff;
+  --mat-sys-primary-container:   #cfd8dc;
+  --mat-sys-secondary:           #26a69a;
+  --mat-sys-on-secondary:        #ffffff;
+  --mat-sys-surface:             #ffffff;
+  --mat-sys-surface-variant:     #eceff1;
+  --mat-sys-background:          #f5f5f5;
+  --mat-sys-outline:             #cfd8dc;
+  --mat-sys-outline-variant:     #e0e0e0;
+}
+
+body {
+  color-scheme: light;
+  background-color: #f5f5f5;
+  color: #37474f;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  margin: 0;
+  height: 100%;
+}
+
+* { box-sizing: border-box; }
+
+// Utility classes
+.page-content {
+  padding: 0 24px 24px;
+  max-width: 1400px;
+}
+
+.section-spacer { margin-bottom: 16px; }
+
+.text-muted      { color: #90a4ae; }
+.text-secondary  { color: #607d8b; }
+
+.flex-row        { display: flex; align-items: center; }
+.flex-gap-sm     { gap: 8px; }
+.flex-gap-md     { gap: 16px; }
+.flex-1          { flex: 1; }
+
+.mat-elevation-0 { box-shadow: none !important; }

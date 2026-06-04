@@ -1,0 +1,10 @@
+<nx-page-header title="Users &amp; Roles" subtitle="Manage user accounts and permissions"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Settings' }, { label: 'Users &amp; Roles' }]">
+</nx-page-header>
+<div class="page-content">
+  <nx-action-bar>
+    <button mat-raised-button color="primary"><mat-icon>person_add</mat-icon> Invite User</button>
+    <button mat-stroked-button><mat-icon>group</mat-icon> Manage Roles</button>
+  </nx-action-bar>
+  <nx-table [columns]="columns" [data]="users"></nx-table>
+</div>

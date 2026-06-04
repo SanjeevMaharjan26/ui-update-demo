@@ -1,0 +1,34 @@
+<nx-page-header title="Inventory Report" subtitle="Stock levels and valuation"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Reports', route: '/reports' }, { label: 'Inventory Report' }]">
+</nx-page-header>
+<div class="page-content">
+  <nx-card title="Report Filters" class="section-spacer">
+    <form [formGroup]="form">
+      <div class="filter-row">
+        <nx-form-field label="Category">
+          <mat-select formControlName="category">
+            <mat-option value="">All Categories</mat-option>
+            <mat-option value="Bearings">Bearings</mat-option>
+            <mat-option value="Fasteners">Fasteners</mat-option>
+            <mat-option value="Motors">Motors</mat-option>
+          </mat-select>
+        </nx-form-field>
+        <nx-form-field label="Status">
+          <mat-select formControlName="status">
+            <mat-option value="">All</mat-option>
+            <mat-option value="active">Active</mat-option>
+            <mat-option value="inactive">Inactive</mat-option>
+          </mat-select>
+        </nx-form-field>
+        <mat-checkbox formControlName="lowStockOnly">Low Stock Only</mat-checkbox>
+        <div class="filter-actions">
+          <button mat-raised-button color="primary" (click)="runReport()"><mat-icon>play_arrow</mat-icon> Run Report</button>
+          <button mat-stroked-button (click)="export()" [disabled]="!hasRun"><mat-icon>download</mat-icon> Export CSV</button>
+        </div>
+      </div>
+    </form>
+  </nx-card>
+
+  <nx-table *ngIf="hasRun" [columns]="columns" [data]="results"></nx-table>
+  <nx-empty-state *ngIf="!hasRun" message="Set filters above and click Run Report" icon="bar_chart"></nx-empty-state>
+</div>

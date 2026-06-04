@@ -1,0 +1,20 @@
+<div class="nx-page-header">
+  <nav class="breadcrumb" *ngIf="breadcrumbs.length > 0">
+    @for (crumb of breadcrumbs; track crumb.label; let last = $last) {
+      @if (!last) {
+        <a *ngIf="crumb.route" [routerLink]="crumb.route" class="crumb-link">{{ crumb.label }}</a>
+        <span *ngIf="!crumb.route" class="crumb-text">{{ crumb.label }}</span>
+        <mat-icon class="crumb-sep">chevron_right</mat-icon>
+      } @else {
+        <span class="crumb-current">{{ crumb.label }}</span>
+      }
+    }
+  </nav>
+  <div class="header-row">
+    <div>
+      <h1 class="page-title">{{ title }}</h1>
+      <p class="page-subtitle" *ngIf="subtitle">{{ subtitle }}</p>
+    </div>
+    <ng-content select="[actions]"></ng-content>
+  </div>
+</div>

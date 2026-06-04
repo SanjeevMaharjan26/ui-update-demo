@@ -1,0 +1,50 @@
+:host { display: block; }
+
+.nx-data-grid {
+  display: flex;
+  flex-direction: column;
+
+  &__search {
+    margin-bottom: 12px;
+    .search-field { width: 320px; }
+  }
+
+  &__table {
+    overflow-x: auto;
+    border: 1px solid #cfd8dc;
+    border-bottom: none;
+  }
+
+  .nx-grid-table {
+    width: 100%;
+    min-width: 600px;
+
+    .mat-mdc-header-cell {
+      background: #eceff1;
+      color: #546e7a;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-right: 1px solid #cfd8dc;
+      padding: 0 12px;
+    }
+
+    .mat-mdc-cell {
+      border-right: 1px solid #e0e0e0;
+      padding: 0 12px;
+      font-size: 13px;
+      color: #37474f;
+    }
+
+    .mat-mdc-row {
+      &:nth-child(even) { background: #fafafa; }
+      &:hover { background: #e3f2fd !important; cursor: pointer; }
+    }
+  }
+
+  mat-paginator {
+    border: 1px solid #cfd8dc;
+    background: #fafafa;
+  }
+}

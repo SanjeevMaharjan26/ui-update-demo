@@ -1,0 +1,55 @@
+<nx-page-header title="Custom Report" subtitle="Build a report from any data fields"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Reports', route: '/reports' }, { label: 'Custom Report' }]">
+</nx-page-header>
+<div class="page-content">
+  <div class="custom-layout">
+    <nx-card title="Available Fields" class="fields-panel">
+      <div class="field-list">
+        @for (field of availableFields; track field.key) {
+          <div class="field-item" [class.selected]="isSelected(field.key)" (click)="toggleField(field.key)">
+            <mat-icon>{{ isSelected(field.key) ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+            <div>
+              <span class="field-label">{{ field.label }}</span>
+              <span class="field-module">{{ field.module }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </nx-card>
+
+    <div class="preview-panel">
+      <nx-action-bar>
+        <button mat-raised-button color="primary" (click)="preview()" [disabled]="selectedFields.length === 0">
+          <mat-icon>preview</mat-icon> Preview ({{ selectedFields.length }} fields)
+        </button>
+        <button mat-stroked-button [disabled]="previewData.length === 0"><mat-icon>download</mat-icon> Export</button>
+      </nx-action-bar>
+
+      <div *ngIf="previewData.length > 0">
+        <div class="preview-hint">Showing {{ previewData.length }} preview rows</div>
+        <div class="preview-table-wrapper">
+          <table class="preview-table">
+            <thead>
+              <tr>
+                @for (key of selectedFields; track key) {
+                  <th>{{ key }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of previewData; track row) {
+                <tr>
+                  @for (key of selectedFields; track key) {
+                    <td>{{ row[key] }}</td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <nx-empty-state *ngIf="previewData.length === 0" message="Select fields from the left panel and click Preview" icon="tune"></nx-empty-state>
+    </div>
+  </div>
+</div>

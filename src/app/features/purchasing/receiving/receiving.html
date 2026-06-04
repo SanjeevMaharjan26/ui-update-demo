@@ -1,0 +1,53 @@
+<nx-page-header title="Receiving" subtitle="Record goods received against purchase orders"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Purchasing' }, { label: 'Receiving' }]">
+</nx-page-header>
+<div class="page-content">
+  <nx-card title="Select Purchase Order">
+    <form [formGroup]="form">
+      <div class="form-row">
+        <nx-form-field label="Purchase Order" [required]="true">
+          <mat-select formControlName="poId" (selectionChange)="selectOrder($event.value)">
+            @for (order of approvedOrders; track order.id) {
+              <mat-option [value]="order.id">{{ order.poNumber }} — {{ order.supplierName }}</mat-option>
+            }
+          </mat-select>
+        </nx-form-field>
+        <nx-form-field label="Received Date" [required]="true">
+          <input matInput formControlName="receivedDate" />
+        </nx-form-field>
+        <nx-form-field label="Notes">
+          <input matInput formControlName="notes" placeholder="Delivery notes…" />
+        </nx-form-field>
+      </div>
+    </form>
+  </nx-card>
+
+  <nx-card title="Line Items" class="section-spacer" *ngIf="selectedOrder">
+    <table class="receiving-table">
+      <thead>
+        <tr>
+          <th>SKU</th><th>Product</th><th>PO Qty</th><th>Prev. Received</th><th>Receiving Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (line of selectedOrder.lines; track line.id) {
+          <tr>
+            <td>{{ line.productSku }}</td>
+            <td>{{ line.productName }}</td>
+            <td>{{ line.quantity }}</td>
+            <td>{{ line.receivedQty }}</td>
+            <td><input type="number" class="qty-input" [value]="0" min="0" [max]="line.quantity - line.receivedQty" /></td>
+          </tr>
+        }
+        @if (selectedOrder.lines.length === 0) {
+          <tr><td colspan="5"><nx-empty-state message="No line items on this order" icon="list"></nx-empty-state></td></tr>
+        }
+      </tbody>
+    </table>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" (click)="submit()"><mat-icon>check</mat-icon> Confirm Receiving</button>
+    </div>
+  </nx-card>
+
+  <nx-empty-state *ngIf="!selectedOrder" message="Select a purchase order above to begin receiving" icon="local_shipping"></nx-empty-state>
+</div>

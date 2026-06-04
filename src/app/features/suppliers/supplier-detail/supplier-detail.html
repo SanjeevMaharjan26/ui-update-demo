@@ -1,0 +1,70 @@
+<nx-page-header [title]="supplier?.name || 'Supplier Detail'"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Suppliers' }, { label: 'Supplier List', route: '/suppliers/list' }, { label: supplier?.code || '' }]">
+  <div actions *ngIf="supplier">
+    <nx-status-chip [status]="supplier.status"></nx-status-chip>
+    <button mat-raised-button color="primary" (click)="save()"><mat-icon>save</mat-icon> Save</button>
+  </div>
+</nx-page-header>
+
+<div class="page-content" *ngIf="form && supplier">
+  <mat-tab-group [(selectedIndex)]="activeTab" class="detail-tabs">
+    <mat-tab label="Info">
+      <div class="tab-content">
+        <form [formGroup]="form">
+          <div class="form-grid">
+            <nx-form-field label="Supplier Name" [required]="true"><input matInput formControlName="name" /></nx-form-field>
+            <nx-form-field label="Category"><input matInput formControlName="category" /></nx-form-field>
+            <nx-form-field label="Country"><input matInput formControlName="country" /></nx-form-field>
+            <nx-form-field label="City"><input matInput formControlName="city" /></nx-form-field>
+            <nx-form-field label="Email"><input matInput formControlName="email" /></nx-form-field>
+            <nx-form-field label="Phone"><input matInput formControlName="phone" /></nx-form-field>
+            <nx-form-field label="Website"><input matInput formControlName="website" /></nx-form-field>
+            <nx-form-field label="Tax ID"><input matInput formControlName="taxId" /></nx-form-field>
+            <nx-form-field label="Payment Terms">
+              <mat-select formControlName="paymentTerms">
+                <mat-option value="Net 30">Net 30</mat-option>
+                <mat-option value="Net 45">Net 45</mat-option>
+                <mat-option value="Net 60">Net 60</mat-option>
+              </mat-select>
+            </nx-form-field>
+            <nx-form-field label="Currency">
+              <mat-select formControlName="currency">
+                <mat-option value="USD">USD</mat-option>
+                <mat-option value="EUR">EUR</mat-option>
+                <mat-option value="GBP">GBP</mat-option>
+              </mat-select>
+            </nx-form-field>
+          </div>
+        </form>
+      </div>
+    </mat-tab>
+    <mat-tab label="Contacts">
+      <div class="tab-content">
+        <app-supplier-contacts [supplierId]="supplier.id" [contacts]="supplier.contacts"></app-supplier-contacts>
+      </div>
+    </mat-tab>
+    <mat-tab label="Orders">
+      <div class="tab-content">
+        <nx-empty-state message="Purchase order history will appear here" icon="shopping_cart"></nx-empty-state>
+      </div>
+    </mat-tab>
+    <mat-tab label="Performance">
+      <div class="tab-content">
+        <div class="perf-stats">
+          <div class="perf-stat">
+            <span class="perf-label">On-Time Delivery</span>
+            <span class="perf-value">{{ supplier.rating >= 4 ? '94%' : supplier.rating >= 3 ? '78%' : '62%' }}</span>
+          </div>
+          <div class="perf-stat">
+            <span class="perf-label">Quality Score</span>
+            <span class="perf-value">{{ supplier.rating }}/5</span>
+          </div>
+          <div class="perf-stat">
+            <span class="perf-label">Open POs</span>
+            <span class="perf-value">{{ supplier.id <= 4 ? 2 : 1 }}</span>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

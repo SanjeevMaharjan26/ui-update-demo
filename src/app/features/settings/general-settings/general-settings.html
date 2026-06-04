@@ -1,0 +1,80 @@
+<nx-page-header title="General Settings" subtitle="Company information and system configuration"
+  [breadcrumbs]="[{ label: 'Home', route: '/dashboard' }, { label: 'Settings' }, { label: 'General' }]">
+  <div actions>
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="!form || form.invalid">
+      <mat-icon>save</mat-icon> Save Settings
+    </button>
+    <span class="saved-msg" *ngIf="saved">&#10003; Saved</span>
+  </div>
+</nx-page-header>
+
+<div class="page-content" *ngIf="form">
+  <form [formGroup]="form">
+    <nx-card title="Company Information" class="section-spacer">
+      <div class="form-grid">
+        <nx-form-field label="Company Name" [required]="true"><input matInput formControlName="companyName" /></nx-form-field>
+        <nx-form-field label="Company Email" [required]="true"><input matInput formControlName="companyEmail" /></nx-form-field>
+        <nx-form-field label="Phone"><input matInput formControlName="phone" /></nx-form-field>
+        <nx-form-field label="Address"><input matInput formControlName="address" /></nx-form-field>
+        <nx-form-field label="Default Currency">
+          <mat-select formControlName="currency">
+            <mat-option value="USD">USD — US Dollar</mat-option>
+            <mat-option value="EUR">EUR — Euro</mat-option>
+            <mat-option value="GBP">GBP — British Pound</mat-option>
+          </mat-select>
+        </nx-form-field>
+        <nx-form-field label="Date Format">
+          <mat-select formControlName="dateFormat">
+            <mat-option value="YYYY-MM-DD">YYYY-MM-DD</mat-option>
+            <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
+            <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
+          </mat-select>
+        </nx-form-field>
+        <nx-form-field label="Timezone">
+          <mat-select formControlName="timezone">
+            <mat-option value="America/Chicago">America/Chicago (CT)</mat-option>
+            <mat-option value="America/New_York">America/New_York (ET)</mat-option>
+            <mat-option value="Europe/London">Europe/London (GMT)</mat-option>
+            <mat-option value="Europe/Berlin">Europe/Berlin (CET)</mat-option>
+          </mat-select>
+        </nx-form-field>
+      </div>
+    </nx-card>
+
+    <nx-card title="System Options">
+      <div class="toggle-list">
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Low Stock Alerts</span>
+            <span class="toggle-desc">Notify when products fall below reorder level</span>
+          </div>
+          <mat-slide-toggle formControlName="lowStockAlerts"></mat-slide-toggle>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Email Notifications</span>
+            <span class="toggle-desc">Send system notifications via email</span>
+          </div>
+          <mat-slide-toggle formControlName="emailNotifications"></mat-slide-toggle>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Audit Logging</span>
+            <span class="toggle-desc">Record all user actions in the audit log</span>
+          </div>
+          <mat-slide-toggle formControlName="auditLogging"></mat-slide-toggle>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <span class="toggle-label">Maintenance Mode</span>
+            <span class="toggle-desc">Disable access for non-admin users</span>
+          </div>
+          <mat-slide-toggle formControlName="maintenanceMode" color="warn"></mat-slide-toggle>
+        </div>
+      </div>
+    </nx-card>
+  </form>
+</div>
