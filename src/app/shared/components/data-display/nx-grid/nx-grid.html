@@ -1,6 +1,7 @@
-<div class="nx-data-grid">
-  @if (showSearch) {
-    <div class="nx-data-grid__search">
+<div class="nx-grid" [ngClass]="'nx-grid--' + mode">
+
+  @if (mode === 'advanced' && showSearch) {
+    <div class="nx-grid__search">
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>{{ searchPlaceholder }}</mat-label>
         <input matInput (keyup)="applyFilter($event)" />
@@ -9,13 +10,23 @@
     </div>
   }
 
-  <div class="nx-data-grid__table">
-    <table mat-table [dataSource]="dataSource" matSort class="nx-grid-table">
+  <div class="nx-grid__table">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      class="nx-grid-table">
+
+      <ng-container matColumnDef="_index">
+        <th mat-header-cell *matHeaderCellDef class="index-col">#</th>
+        <td mat-cell *matCellDef="let i = index" class="index-col">{{ i + 1 }}</td>
+      </ng-container>
+
       @for (col of columns; track col.key) {
         <ng-container [matColumnDef]="col.key">
           <th mat-header-cell *matHeaderCellDef
-              [mat-sort-header]="col.sortable ? col.key : ''"
-              [disabled]="!col.sortable"
+              [mat-sort-header]="mode === 'advanced' && col.sortable ? col.key : ''"
+              [disabled]="mode !== 'advanced' || !col.sortable"
               [style.width]="col.width">
             {{ col.header }}
           </th>
@@ -24,7 +35,7 @@
               @case ('status')   { <nx-status-chip [status]="row[col.key]"></nx-status-chip> }
               @case ('badge')    { <nx-badge [label]="row[col.key]"></nx-badge> }
               @case ('currency') { {{ row[col.key] | currency }} }
-              @default           { {{ row[col.key] }}  }
+              @default           { {{ row[col.key] }} }
             }
           </td>
         </ng-container>
@@ -34,15 +45,22 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       <tr *matNoDataRow>
         <td [attr.colspan]="displayedColumns.length">
-          <nx-empty-state message="No records found"></nx-empty-state>
+          @if (mode === 'simple') {
+            <nx-empty-state></nx-empty-state>
+          } @else {
+            <nx-empty-state message="No records found"></nx-empty-state>
+          }
         </td>
       </tr>
     </table>
   </div>
 
-  <mat-paginator
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[10, 25, 50, 100]"
-    showFirstLastButtons>
-  </mat-paginator>
+  @if (mode === 'advanced') {
+    <mat-paginator
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[10, 25, 50, 100]"
+      showFirstLastButtons>
+    </mat-paginator>
+  }
+
 </div>

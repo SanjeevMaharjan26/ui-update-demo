@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Product } from '../models';
 import { InventoryService } from '../inventory.service';
-import { GridColumn } from '../../../shared/components/nx-data-grid/nx-data-grid';
+import { ProductAddDialogComponent } from '../product-add-dialog/product-add-dialog';
+import { GridColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
 
 @Component({
   selector: 'app-product-list',
@@ -24,9 +26,21 @@ export class ProductListComponent implements OnInit {
     { key: 'supplier', header: 'Supplier', sortable: true },
   ];
 
-  constructor(private service: InventoryService) {}
+  constructor(
+    private service: InventoryService,
+    private dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.service.getProducts().subscribe(p => (this.products = p));
+  }
+
+  openAddProductDialog(): void {
+    const ref = this.dialog.open(ProductAddDialogComponent, { width: '600px' });
+    ref.afterClosed().subscribe(result => {
+      if (result) {
+        this.service.getProducts().subscribe(p => (this.products = p));
+      }
+    });
   }
 }

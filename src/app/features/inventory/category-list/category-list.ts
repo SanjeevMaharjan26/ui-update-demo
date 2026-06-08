@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models';
 import { InventoryService } from '../inventory.service';
-import { TableColumn } from '../../../shared/components/nx-table/nx-table';
+import { TableColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
 
 @Component({
   selector: 'app-category-list',

@@ -1,0 +1,69 @@
+<nx-dialog-form-wrapper
+  title="Add Supplier"
+  [saveDisabled]="form.invalid"
+  (save)="save()"
+  (cancel)="cancel()">
+
+  <form [formGroup]="form" class="dialog-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Supplier Name</mat-label>
+        <input matInput formControlName="name" placeholder="e.g. Acme Parts Ltd">
+        <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <input matInput formControlName="category" placeholder="e.g. Industrial Parts">
+        <mat-error *ngIf="form.get('category')?.hasError('required')">Category is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Country</mat-label>
+        <input matInput formControlName="country" placeholder="e.g. United States">
+        <mat-error *ngIf="form.get('country')?.hasError('required')">Country is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" placeholder="e.g. Chicago">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="sales@example.com">
+        <mat-error *ngIf="form.get('email')?.hasError('email')">Invalid email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" placeholder="+1-312-555-0100">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Website</mat-label>
+        <input matInput formControlName="website" placeholder="www.example.com">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Payment Terms</mat-label>
+        <mat-select formControlName="paymentTerms">
+          <mat-option *ngFor="let opt of paymentTermsOptions" [value]="opt">{{ opt }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Currency</mat-label>
+        <mat-select formControlName="currency">
+          <mat-option *ngFor="let opt of currencyOptions" [value]="opt">{{ opt }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</nx-dialog-form-wrapper>

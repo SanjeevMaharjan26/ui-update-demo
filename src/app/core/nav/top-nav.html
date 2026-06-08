@@ -3,7 +3,7 @@
   <span class="spacer"></span>
 
   <nav class="nav-links">
-    <app-nav-item *ngFor="let item of navItems" [item]="item"></app-nav-item>
+    <app-nav-item *ngFor="let item of navItemsData; let i = index" [item]="item" [index]="i" (toggled)="onNavItemToggled(i)"></app-nav-item>
   </nav>
 
   <button mat-icon-button class="icon-btn" [matBadge]="notificationCount" matBadgeColor="warn" matBadgeSize="small" aria-label="Notifications">

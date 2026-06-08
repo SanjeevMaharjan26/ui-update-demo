@@ -12,16 +12,20 @@
   <nx-card title="Order Information" class="section-spacer">
     <form [formGroup]="form">
       <div class="form-grid">
-        <nx-form-field label="Supplier"><input matInput formControlName="supplierName" /></nx-form-field>
-        <nx-form-field label="Order Date"><input matInput formControlName="orderDate" /></nx-form-field>
-        <nx-form-field label="Expected Delivery"><input matInput formControlName="expectedDate" /></nx-form-field>
-        <nx-form-field label="Notes"><input matInput formControlName="notes" /></nx-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Supplier</mat-label><input matInput formControlName="supplierName" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Order Date</mat-label><input matInput formControlName="orderDate" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Expected Delivery</mat-label><input matInput formControlName="expectedDate" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Notes</mat-label><input matInput formControlName="notes" /></mat-form-field>
       </div>
     </form>
   </nx-card>
 
   <nx-card title="Line Items" class="section-spacer">
-    <nx-table [columns]="lineColumns" [data]="order.lines"></nx-table>
+    <nx-grid mode="simple" [columns]="lineColumns" [data]="order.lines"></nx-grid>
     <div class="totals-footer">
       <span class="total-label">Total Amount:</span>
       <span class="total-value">{{ order.totalAmount | currency }}</span>

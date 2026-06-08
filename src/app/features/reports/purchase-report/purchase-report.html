@@ -5,16 +5,20 @@
   <nx-card title="Report Filters" class="section-spacer">
     <form [formGroup]="form">
       <div class="filter-row">
-        <nx-form-field label="Date From"><input matInput formControlName="dateFrom" /></nx-form-field>
-        <nx-form-field label="Date To"><input matInput formControlName="dateTo" /></nx-form-field>
-        <nx-form-field label="Supplier"><input matInput formControlName="supplier" placeholder="All suppliers" /></nx-form-field>
-        <nx-form-field label="Status">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Date From</mat-label><input matInput formControlName="dateFrom" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Date To</mat-label><input matInput formControlName="dateTo" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Supplier</mat-label><input matInput formControlName="supplier" placeholder="All suppliers" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Status</mat-label>
           <mat-select formControlName="status">
             <mat-option value="">All</mat-option>
             <mat-option value="approved">Approved</mat-option>
             <mat-option value="received">Received</mat-option>
           </mat-select>
-        </nx-form-field>
+        </mat-form-field>
         <div class="filter-actions">
           <button mat-raised-button color="primary" (click)="runReport()"><mat-icon>play_arrow</mat-icon> Run</button>
           <button mat-stroked-button (click)="export()" [disabled]="!hasRun"><mat-icon>download</mat-icon> Export</button>
@@ -22,6 +26,6 @@
       </div>
     </form>
   </nx-card>
-  <nx-table *ngIf="hasRun" [columns]="columns" [data]="summaryData"></nx-table>
+  <nx-grid mode="simple" *ngIf="hasRun" [columns]="columns" [data]="summaryData"></nx-grid>
   <nx-empty-state *ngIf="!hasRun" message="Set date range and click Run" icon="date_range"></nx-empty-state>
 </div>

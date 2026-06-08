@@ -1,6 +1,6 @@
 :host { display: block; }
 
-.nx-data-grid {
+.nx-grid {
   display: flex;
   flex-direction: column;
 
@@ -17,7 +17,6 @@
 
   .nx-grid-table {
     width: 100%;
-    min-width: 600px;
 
     .mat-mdc-header-cell {
       background: #eceff1;
@@ -40,6 +39,25 @@
     .mat-mdc-row {
       &:nth-child(even) { background: #fafafa; }
       &:hover { background: #e3f2fd !important; cursor: pointer; }
+    }
+
+    .index-col {
+      width: 40px;
+      min-width: 40px;
+      text-align: center;
+      color: #90a4ae;
+    }
+  }
+
+  &--simple {
+    .nx-grid-table {
+      min-width: 500px;
+    }
+  }
+
+  &--advanced {
+    .nx-grid-table {
+      min-width: 600px;
     }
   }
 

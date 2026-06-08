@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TableColumn } from '../../../shared/components/nx-table/nx-table';
+import { TableColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
 
 interface ReportRow { sku: string; name: string; category: string; stockQty: number; reorderLevel: number; unitPrice: number; stockValue: number; }
 

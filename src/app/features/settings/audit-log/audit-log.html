@@ -5,8 +5,10 @@
   <nx-card title="Filters" class="section-spacer">
     <form [formGroup]="form">
       <div class="filter-row">
-        <nx-form-field label="User"><input matInput formControlName="user" placeholder="Filter by user…" /></nx-form-field>
-        <nx-form-field label="Module">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>User</mat-label><input matInput formControlName="user" placeholder="Filter by user…" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Module</mat-label>
           <mat-select formControlName="module">
             <mat-option value="">All Modules</mat-option>
             <mat-option value="Inventory">Inventory</mat-option>
@@ -14,13 +16,15 @@
             <mat-option value="Suppliers">Suppliers</mat-option>
             <mat-option value="Settings">Settings</mat-option>
           </mat-select>
-        </nx-form-field>
-        <nx-form-field label="From Date"><input matInput formControlName="dateFrom" /></nx-form-field>
-        <nx-form-field label="To Date"><input matInput formControlName="dateTo" /></nx-form-field>
+        </mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>From Date</mat-label><input matInput formControlName="dateFrom" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>To Date</mat-label><input matInput formControlName="dateTo" /></mat-form-field>
         <button mat-stroked-button type="button"><mat-icon>filter_list</mat-icon> Apply</button>
         <button mat-stroked-button type="button"><mat-icon>download</mat-icon> Export</button>
       </div>
     </form>
   </nx-card>
-  <nx-table [columns]="columns" [data]="entries"></nx-table>
+  <nx-grid mode="simple" [columns]="columns" [data]="entries"></nx-grid>
 </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -17,6 +17,9 @@ export interface NavItem {
 })
 export class NavItemComponent implements OnInit, OnDestroy {
   @Input() item!: NavItem;
+  @Input() index = 0;
+  @Output() toggled = new EventEmitter<number>();
+
   isOpen = false;
 
   private routerSub = Subscription.EMPTY;
@@ -46,6 +49,7 @@ export class NavItemComponent implements OnInit, OnDestroy {
     this.ngZone.run(() => {
       this.isOpen = !this.isOpen;
       this.cdr.detectChanges();
+      this.toggled.emit(this.index);
     });
   }
 

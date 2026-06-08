@@ -1,0 +1,48 @@
+<nx-dialog-form-wrapper
+  title="New Requisition"
+  [saveDisabled]="form.invalid"
+  (save)="save()"
+  (cancel)="cancel()">
+
+  <form [formGroup]="form" class="dialog-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" placeholder="e.g. Hydraulic seal kits">
+        <mat-error *ngIf="form.get('description')?.hasError('required')">Description is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Requested By</mat-label>
+        <input matInput formControlName="requestedBy" placeholder="e.g. Alice Brown">
+        <mat-error *ngIf="form.get('requestedBy')?.hasError('required')">Requestor is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select formControlName="department">
+          <mat-option *ngFor="let dept of departments" [value]="dept">{{ dept }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('department')?.hasError('required')">Department is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Required Date</mat-label>
+        <input matInput formControlName="requiredDate" type="date">
+        <mat-error *ngIf="form.get('requiredDate')?.hasError('required')">Required date is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Estimated Cost</mat-label>
+        <input matInput type="number" formControlName="estimatedCost" placeholder="0.00">
+        <span matTextPrefix>$&nbsp;</span>
+        <mat-error *ngIf="form.get('estimatedCost')?.hasError('required')">Estimated cost is required</mat-error>
+        <mat-error *ngIf="form.get('estimatedCost')?.hasError('min')">Must be 0 or more</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</nx-dialog-form-wrapper>

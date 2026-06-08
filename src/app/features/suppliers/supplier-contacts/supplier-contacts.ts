@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SupplierContact } from '../models';
-import { TableColumn } from '../../../shared/components/nx-table/nx-table';
+import { TableColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
 
 @Component({ selector: 'app-supplier-contacts', standalone: false, templateUrl: './supplier-contacts.html', styleUrl: './supplier-contacts.scss' })
 export class SupplierContactsComponent {

@@ -5,6 +5,8 @@ import { PurchaseOrderListComponent } from './purchase-order-list/purchase-order
 import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail';
 import { RequisitionListComponent } from './requisition-list/requisition-list';
 import { ReceivingComponent } from './receiving/receiving';
+import { PurchaseOrderAddDialogComponent } from './purchase-order-add-dialog/purchase-order-add-dialog';
+import { RequisitionAddDialogComponent } from './requisition-add-dialog/requisition-add-dialog';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,8 @@ import { ReceivingComponent } from './receiving/receiving';
     PurchaseOrderDetailComponent,
     RequisitionListComponent,
     ReceivingComponent,
+    PurchaseOrderAddDialogComponent,
+    RequisitionAddDialogComponent,
   ],
   imports: [SharedModule, PurchasingRoutingModule],
 })

@@ -14,17 +14,21 @@
   <div class="add-form" *ngIf="showAddForm">
     <nx-card title="New Category">
       <div class="form-row">
-        <nx-form-field label="Category Name" [required]="true">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Category Name <span class="req-mark"> *</span></mat-label>
           <input matInput placeholder="e.g. Bearings" />
-        </nx-form-field>
-        <nx-form-field label="Description">
+        </mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Description</mat-label>
           <input matInput placeholder="Short description" />
-        </nx-form-field>
+        </mat-form-field>
+      </div>
+      <div class="form-actions">
         <button mat-raised-button color="primary">Save</button>
         <button mat-stroked-button (click)="toggleAdd()">Cancel</button>
       </div>
     </nx-card>
   </div>
 
-  <nx-table [columns]="columns" [data]="categories" [showIndex]="false"></nx-table>
+  <nx-grid mode="simple" [columns]="columns" [data]="categories" [showIndex]="false"></nx-grid>
 </div>

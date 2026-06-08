@@ -12,28 +12,38 @@
       <div class="tab-content">
         <form [formGroup]="form">
           <div class="form-grid">
-            <nx-form-field label="Supplier Name" [required]="true"><input matInput formControlName="name" /></nx-form-field>
-            <nx-form-field label="Category"><input matInput formControlName="category" /></nx-form-field>
-            <nx-form-field label="Country"><input matInput formControlName="country" /></nx-form-field>
-            <nx-form-field label="City"><input matInput formControlName="city" /></nx-form-field>
-            <nx-form-field label="Email"><input matInput formControlName="email" /></nx-form-field>
-            <nx-form-field label="Phone"><input matInput formControlName="phone" /></nx-form-field>
-            <nx-form-field label="Website"><input matInput formControlName="website" /></nx-form-field>
-            <nx-form-field label="Tax ID"><input matInput formControlName="taxId" /></nx-form-field>
-            <nx-form-field label="Payment Terms">
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Supplier Name <span class="req-mark"> *</span></mat-label><input matInput formControlName="name" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Category</mat-label><input matInput formControlName="category" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Country</mat-label><input matInput formControlName="country" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>City</mat-label><input matInput formControlName="city" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Email</mat-label><input matInput formControlName="email" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Phone</mat-label><input matInput formControlName="phone" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Website</mat-label><input matInput formControlName="website" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Tax ID</mat-label><input matInput formControlName="taxId" /></mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Payment Terms</mat-label>
               <mat-select formControlName="paymentTerms">
                 <mat-option value="Net 30">Net 30</mat-option>
                 <mat-option value="Net 45">Net 45</mat-option>
                 <mat-option value="Net 60">Net 60</mat-option>
               </mat-select>
-            </nx-form-field>
-            <nx-form-field label="Currency">
+            </mat-form-field>
+            <mat-form-field appearance="outline" nxFormField>
+              <mat-label>Currency</mat-label>
               <mat-select formControlName="currency">
                 <mat-option value="USD">USD</mat-option>
                 <mat-option value="EUR">EUR</mat-option>
                 <mat-option value="GBP">GBP</mat-option>
               </mat-select>
-            </nx-form-field>
+            </mat-form-field>
           </div>
         </form>
       </div>

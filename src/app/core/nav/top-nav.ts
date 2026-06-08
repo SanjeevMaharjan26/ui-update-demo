@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { NavItem } from './nav-item';
+import { Component, OnDestroy, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { NavItem, NavItemComponent } from './nav-item';
 
 @Component({
   selector: 'app-top-nav',
@@ -7,8 +10,11 @@ import { NavItem } from './nav-item';
   templateUrl: './top-nav.html',
   styleUrl: './top-nav.scss',
 })
-export class TopNavComponent {
-  navItems: NavItem[] = [
+export class TopNavComponent implements OnInit, OnDestroy {
+  @ViewChildren(NavItemComponent) navItems!: QueryList<NavItemComponent>;
+
+  openNavIndex = -1;
+  navItemsData: NavItem[] = [
     {
       label: 'Inventory',
       children: [
@@ -56,4 +62,29 @@ export class TopNavComponent {
 
   notificationCount = 3;
   currentUser = { name: 'John Doe', initials: 'JD' };
+
+  private routerSub = Subscription.EMPTY;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.routerSub = this.router.events
+      .pipe(filter(e => e instanceof NavigationStart))
+      .subscribe(() => {
+        this.openNavIndex = -1;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub.unsubscribe();
+  }
+
+  onNavItemToggled(index: number): void {
+    if (this.openNavIndex !== -1 && this.openNavIndex !== index) {
+      const items = this.navItems.toArray();
+      const prev = items[this.openNavIndex];
+      if (prev) prev.close();
+    }
+    this.openNavIndex = this.openNavIndex === index ? -1 : index;
+  }
 }

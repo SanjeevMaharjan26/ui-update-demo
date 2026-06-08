@@ -3,7 +3,7 @@
 </nx-page-header>
 <div class="page-content">
   <nx-action-bar>
-    <button mat-raised-button color="primary"><mat-icon>add</mat-icon> New Requisition</button>
+    <button mat-raised-button color="primary" (click)="openAddDialog()"><mat-icon>add</mat-icon> New Requisition</button>
   </nx-action-bar>
-  <nx-data-grid [columns]="columns" [data]="requisitions" [showSearch]="true" searchPlaceholder="Search requisitions…" [pageSize]="10"></nx-data-grid>
+  <nx-grid [columns]="columns" [data]="requisitions" [showSearch]="true" searchPlaceholder="Search requisitions…" [pageSize]="10"></nx-grid>
 </div>

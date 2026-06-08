@@ -31,15 +31,15 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
 
-import { NxPageHeaderComponent } from './components/nx-page-header/nx-page-header';
-import { NxCardComponent } from './components/nx-card/nx-card';
-import { NxBadgeComponent } from './components/nx-badge/nx-badge';
-import { NxStatusChipComponent } from './components/nx-status-chip/nx-status-chip';
-import { NxTableComponent } from './components/nx-table/nx-table';
-import { NxDataGridComponent } from './components/nx-data-grid/nx-data-grid';
-import { NxFormFieldWrapperComponent } from './components/nx-form-field-wrapper/nx-form-field-wrapper';
-import { NxActionBarComponent } from './components/nx-action-bar/nx-action-bar';
-import { NxEmptyStateComponent } from './components/nx-empty-state/nx-empty-state';
+import { NxPageHeaderComponent } from './components/layout/nx-page-header/nx-page-header';
+import { NxActionBarComponent } from './components/layout/nx-action-bar/nx-action-bar';
+import { NxCardComponent } from './components/layout/nx-card/nx-card';
+import { NxGridComponent } from './components/data-display/nx-grid/nx-grid';
+import { NxBadgeComponent } from './components/data-display/nx-badge/nx-badge';
+import { NxStatusChipComponent } from './components/data-display/nx-status-chip/nx-status-chip';
+import { NxEmptyStateComponent } from './components/data-display/nx-empty-state/nx-empty-state';
+import { NxFormFieldDirective } from './directives/nx-form-field.directive';
+import { NxDialogFormWrapperComponent } from './components/form/nx-dialog-form-wrapper/nx-dialog-form-wrapper';
 import { StatusLabelPipe } from './pipes/status-label.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { HighlightDirective } from './directives/highlight.directive';
@@ -57,19 +57,22 @@ const MATERIAL_MODULES = [
   MatStepperModule,
 ];
 
-const NX_COMPONENTS = [
-  NxPageHeaderComponent, NxCardComponent, NxBadgeComponent,
-  NxStatusChipComponent, NxTableComponent, NxDataGridComponent,
-  NxFormFieldWrapperComponent, NxActionBarComponent, NxEmptyStateComponent,
-];
-
 @NgModule({
-  declarations: [...NX_COMPONENTS, StatusLabelPipe, TruncatePipe, HighlightDirective],
+  declarations: [
+    NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,
+    NxGridComponent, NxBadgeComponent, NxStatusChipComponent,
+    NxEmptyStateComponent,
+    NxFormFieldDirective, NxDialogFormWrapperComponent,
+    StatusLabelPipe, TruncatePipe, HighlightDirective,
+  ],
   imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES],
   exports: [
     CommonModule, RouterModule, ReactiveFormsModule, FormsModule,
     ...MATERIAL_MODULES,
-    ...NX_COMPONENTS,
+    NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,
+    NxGridComponent, NxBadgeComponent, NxStatusChipComponent,
+    NxEmptyStateComponent,
+    NxFormFieldDirective, NxDialogFormWrapperComponent,
     StatusLabelPipe, TruncatePipe, HighlightDirective,
   ],
 })

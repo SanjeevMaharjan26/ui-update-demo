@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PurchaseOrder } from '../models';
 import { PurchasingService } from '../purchasing.service';
-import { TableColumn } from '../../../shared/components/nx-table/nx-table';
+import { TableColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
 
 @Component({ selector: 'app-purchase-order-detail', standalone: false, templateUrl: './purchase-order-detail.html', styleUrl: './purchase-order-detail.scss' })
 export class PurchaseOrderDetailComponent implements OnInit {

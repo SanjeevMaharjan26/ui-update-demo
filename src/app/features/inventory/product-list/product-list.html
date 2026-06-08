@@ -6,7 +6,7 @@
 
 <div class="page-content">
   <nx-action-bar>
-    <button mat-raised-button color="primary">
+    <button mat-raised-button color="primary" (click)="openAddProductDialog()">
       <mat-icon>add</mat-icon> New Product
     </button>
     <button mat-stroked-button>
@@ -27,11 +27,11 @@
     </mat-form-field>
   </nx-action-bar>
 
-  <nx-data-grid
+  <nx-grid
     [columns]="columns"
     [data]="products"
     [showSearch]="true"
     searchPlaceholder="Search products by name or SKU…"
     [pageSize]="10">
-  </nx-data-grid>
+  </nx-grid>
 </div>

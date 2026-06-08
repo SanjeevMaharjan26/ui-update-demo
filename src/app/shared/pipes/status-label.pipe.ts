@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { StatusType } from '../components/nx-status-chip/nx-status-chip';
+import { StatusType } from '../components/data-display/nx-status-chip/nx-status-chip';
 
 const STATUS_LABELS: Record<StatusType, string> = {
   draft: 'Draft',

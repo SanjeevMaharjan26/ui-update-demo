@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TableColumn } from '../../../shared/components/nx-table/nx-table';
+import { TableColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
 
 interface AuditEntry { id: number; timestamp: string; user: string; action: string; module: string; details: string; ipAddress: string; }
 

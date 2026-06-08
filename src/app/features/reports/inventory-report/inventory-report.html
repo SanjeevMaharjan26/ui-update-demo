@@ -5,21 +5,23 @@
   <nx-card title="Report Filters" class="section-spacer">
     <form [formGroup]="form">
       <div class="filter-row">
-        <nx-form-field label="Category">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Category</mat-label>
           <mat-select formControlName="category">
             <mat-option value="">All Categories</mat-option>
             <mat-option value="Bearings">Bearings</mat-option>
             <mat-option value="Fasteners">Fasteners</mat-option>
             <mat-option value="Motors">Motors</mat-option>
           </mat-select>
-        </nx-form-field>
-        <nx-form-field label="Status">
+        </mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Status</mat-label>
           <mat-select formControlName="status">
             <mat-option value="">All</mat-option>
             <mat-option value="active">Active</mat-option>
             <mat-option value="inactive">Inactive</mat-option>
           </mat-select>
-        </nx-form-field>
+        </mat-form-field>
         <mat-checkbox formControlName="lowStockOnly">Low Stock Only</mat-checkbox>
         <div class="filter-actions">
           <button mat-raised-button color="primary" (click)="runReport()"><mat-icon>play_arrow</mat-icon> Run Report</button>
@@ -29,6 +31,6 @@
     </form>
   </nx-card>
 
-  <nx-table *ngIf="hasRun" [columns]="columns" [data]="results"></nx-table>
+  <nx-grid mode="simple" *ngIf="hasRun" [columns]="columns" [data]="results"></nx-grid>
   <nx-empty-state *ngIf="!hasRun" message="Set filters above and click Run Report" icon="bar_chart"></nx-empty-state>
 </div>

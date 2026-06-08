@@ -1,8 +1,0 @@
-<mat-form-field appearance="outline" class="nx-form-field">
-  <mat-label>{{ label }}<span *ngIf="required" class="req-mark"> *</span></mat-label>
-  <ng-content></ng-content>
-  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
-  <mat-error>
-    <ng-content select="[error]"></ng-content>
-  </mat-error>
-</mat-form-field>

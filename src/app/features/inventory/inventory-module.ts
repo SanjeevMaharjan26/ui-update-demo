@@ -5,6 +5,7 @@ import { ProductListComponent } from './product-list/product-list';
 import { ProductDetailComponent } from './product-detail/product-detail';
 import { CategoryListComponent } from './category-list/category-list';
 import { StockAdjustmentComponent } from './stock-adjustment/stock-adjustment';
+import { ProductAddDialogComponent } from './product-add-dialog/product-add-dialog';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { StockAdjustmentComponent } from './stock-adjustment/stock-adjustment';
     ProductDetailComponent,
     CategoryListComponent,
     StockAdjustmentComponent,
+    ProductAddDialogComponent,
   ],
   imports: [SharedModule, InventoryRoutingModule],
 })

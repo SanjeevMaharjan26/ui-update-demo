@@ -5,19 +5,22 @@
   <nx-card title="Select Purchase Order">
     <form [formGroup]="form">
       <div class="form-row">
-        <nx-form-field label="Purchase Order" [required]="true">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Purchase Order <span class="req-mark"> *</span></mat-label>
           <mat-select formControlName="poId" (selectionChange)="selectOrder($event.value)">
             @for (order of approvedOrders; track order.id) {
               <mat-option [value]="order.id">{{ order.poNumber }} — {{ order.supplierName }}</mat-option>
             }
           </mat-select>
-        </nx-form-field>
-        <nx-form-field label="Received Date" [required]="true">
+        </mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Received Date <span class="req-mark"> *</span></mat-label>
           <input matInput formControlName="receivedDate" />
-        </nx-form-field>
-        <nx-form-field label="Notes">
+        </mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Notes</mat-label>
           <input matInput formControlName="notes" placeholder="Delivery notes…" />
-        </nx-form-field>
+        </mat-form-field>
       </div>
     </form>
   </nx-card>

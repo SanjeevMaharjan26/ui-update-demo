@@ -3,6 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
+export type TableColumn = GridColumn;
+
 export interface GridColumn {
   key: string;
   header: string;
@@ -12,14 +14,16 @@ export interface GridColumn {
 }
 
 @Component({
-  selector: 'nx-data-grid',
+  selector: 'nx-grid',
   standalone: false,
-  templateUrl: './nx-data-grid.html',
-  styleUrl: './nx-data-grid.scss',
+  templateUrl: './nx-grid.html',
+  styleUrl: './nx-grid.scss',
 })
-export class NxDataGridComponent implements OnChanges, AfterViewInit {
+export class NxGridComponent implements OnChanges, AfterViewInit {
+  @Input() mode: 'simple' | 'advanced' = 'advanced';
   @Input() columns: GridColumn[] = [];
   @Input() data: any[] = [];
+  @Input() showIndex = false;
   @Input() pageSize = 10;
   @Input() showSearch = false;
   @Input() searchPlaceholder = 'Search…';
@@ -30,7 +34,8 @@ export class NxDataGridComponent implements OnChanges, AfterViewInit {
   dataSource = new MatTableDataSource<any>([]);
 
   get displayedColumns(): string[] {
-    return this.columns.map(c => c.key);
+    const cols = this.columns.map(c => c.key);
+    return this.showIndex ? ['_index', ...cols] : cols;
   }
 
   ngOnChanges(): void {
@@ -38,8 +43,10 @@ export class NxDataGridComponent implements OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    if (this.mode === 'advanced') {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 
   applyFilter(event: Event): void {

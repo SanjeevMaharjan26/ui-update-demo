@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TableColumn } from '../../../shared/components/nx-table/nx-table';
+import { TableColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
 
 interface AppUser { id: number; name: string; email: string; role: string; status: string; lastLogin: string; }
 

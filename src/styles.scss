@@ -60,3 +60,15 @@ body {
 .flex-1          { flex: 1; }
 
 .mat-elevation-0 { box-shadow: none !important; }
+
+// Shared form field
+.nx-form-field {
+  width: 100%;
+
+  .req-mark { color: #e53935; }
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__trailing {
+    border-radius: 0 !important;
+  }
+}

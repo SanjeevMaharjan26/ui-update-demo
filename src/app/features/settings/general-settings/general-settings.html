@@ -12,32 +12,39 @@
   <form [formGroup]="form">
     <nx-card title="Company Information" class="section-spacer">
       <div class="form-grid">
-        <nx-form-field label="Company Name" [required]="true"><input matInput formControlName="companyName" /></nx-form-field>
-        <nx-form-field label="Company Email" [required]="true"><input matInput formControlName="companyEmail" /></nx-form-field>
-        <nx-form-field label="Phone"><input matInput formControlName="phone" /></nx-form-field>
-        <nx-form-field label="Address"><input matInput formControlName="address" /></nx-form-field>
-        <nx-form-field label="Default Currency">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Company Name <span class="req-mark"> *</span></mat-label><input matInput formControlName="companyName" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Company Email <span class="req-mark"> *</span></mat-label><input matInput formControlName="companyEmail" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Phone</mat-label><input matInput formControlName="phone" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Address</mat-label><input matInput formControlName="address" /></mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Default Currency</mat-label>
           <mat-select formControlName="currency">
             <mat-option value="USD">USD — US Dollar</mat-option>
             <mat-option value="EUR">EUR — Euro</mat-option>
             <mat-option value="GBP">GBP — British Pound</mat-option>
           </mat-select>
-        </nx-form-field>
-        <nx-form-field label="Date Format">
+        </mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Date Format</mat-label>
           <mat-select formControlName="dateFormat">
             <mat-option value="YYYY-MM-DD">YYYY-MM-DD</mat-option>
             <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
             <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
           </mat-select>
-        </nx-form-field>
-        <nx-form-field label="Timezone">
+        </mat-form-field>
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Timezone</mat-label>
           <mat-select formControlName="timezone">
             <mat-option value="America/Chicago">America/Chicago (CT)</mat-option>
             <mat-option value="America/New_York">America/New_York (ET)</mat-option>
             <mat-option value="Europe/London">Europe/London (GMT)</mat-option>
             <mat-option value="Europe/Berlin">Europe/Berlin (CET)</mat-option>
           </mat-select>
-        </nx-form-field>
+        </mat-form-field>
       </div>
     </nx-card>
 

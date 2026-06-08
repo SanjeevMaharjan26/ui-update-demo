@@ -1,0 +1,37 @@
+<nx-dialog-form-wrapper
+  title="New Purchase Order"
+  [saveDisabled]="form.invalid"
+  (save)="save()"
+  (cancel)="cancel()">
+
+  <form [formGroup]="form" class="dialog-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Supplier</mat-label>
+        <input matInput formControlName="supplierName" placeholder="e.g. Acme Parts Ltd">
+        <mat-error *ngIf="form.get('supplierName')?.hasError('required')">Supplier is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Order Date</mat-label>
+        <input matInput formControlName="orderDate" type="date">
+        <mat-error *ngIf="form.get('orderDate')?.hasError('required')">Order date is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Expected Delivery</mat-label>
+        <input matInput formControlName="expectedDate" type="date">
+        <mat-error *ngIf="form.get('expectedDate')?.hasError('required')">Expected date is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Notes</mat-label>
+        <textarea matInput formControlName="notes" rows="3" placeholder="Optional notes…"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</nx-dialog-form-wrapper>
