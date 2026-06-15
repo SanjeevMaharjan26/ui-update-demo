@@ -1,0 +1,23 @@
+<nx-dialog-form-wrapper
+  title="New Category"
+  [saveDisabled]="form.invalid"
+  (save)="save()"
+  (cancel)="cancel()">
+
+  <form [formGroup]="form" class="dialog-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Category Name</mat-label>
+        <input matInput formControlName="name" placeholder="e.g. Bearings">
+        <mat-error *ngIf="form.get('name')?.hasError('required')">Category name is required</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="3" placeholder="Short description…"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</nx-dialog-form-wrapper>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TableColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';
+import { UserAddDialogComponent } from '../user-add-dialog/user-add-dialog';
 
 interface AppUser { id: number; name: string; email: string; role: string; status: string; lastLogin: string; }
 
@@ -15,6 +17,8 @@ export class UsersRolesComponent {
     { id: 7, name: 'Bob Davis', email: 'bob.d@nexus.com', role: 'viewer', status: 'inactive', lastLogin: '2026-05-10 11:00' },
     { id: 8, name: 'Carol White', email: 'carol.w@nexus.com', role: 'operator', status: 'active', lastLogin: '2026-06-02 16:15' },
   ];
+  private nextId = 9;
+
   columns: TableColumn[] = [
     { key: 'name', header: 'Name', width: '160px' },
     { key: 'email', header: 'Email' },
@@ -22,4 +26,18 @@ export class UsersRolesComponent {
     { key: 'status', header: 'Status', type: 'status', width: '90px' },
     { key: 'lastLogin', header: 'Last Login', width: '150px' },
   ];
+
+  constructor(private dialog: MatDialog) {}
+
+  openInviteUserDialog(): void {
+    const ref = this.dialog.open(UserAddDialogComponent, { width: '550px' });
+    ref.afterClosed().subscribe(result => {
+      if (result) {
+        this.users = [
+          ...this.users,
+          { id: this.nextId++, ...result, lastLogin: '-' },
+        ];
+      }
+    });
+  }
 }

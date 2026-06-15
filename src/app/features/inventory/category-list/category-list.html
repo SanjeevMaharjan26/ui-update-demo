@@ -6,29 +6,10 @@
 
 <div class="page-content">
   <nx-action-bar>
-    <button mat-raised-button color="primary" (click)="toggleAdd()">
+    <button mat-raised-button color="primary" (click)="openAddCategoryDialog()">
       <mat-icon>add</mat-icon> Add Category
     </button>
   </nx-action-bar>
-
-  <div class="add-form" *ngIf="showAddForm">
-    <nx-card title="New Category">
-      <div class="form-row">
-        <mat-form-field appearance="outline" nxFormField>
-          <mat-label>Category Name <span class="req-mark"> *</span></mat-label>
-          <input matInput placeholder="e.g. Bearings" />
-        </mat-form-field>
-        <mat-form-field appearance="outline" nxFormField>
-          <mat-label>Description</mat-label>
-          <input matInput placeholder="Short description" />
-        </mat-form-field>
-      </div>
-      <div class="form-actions">
-        <button mat-raised-button color="primary">Save</button>
-        <button mat-stroked-button (click)="toggleAdd()">Cancel</button>
-      </div>
-    </nx-card>
-  </div>
 
   <nx-grid mode="simple" [columns]="columns" [data]="categories" [showIndex]="false"></nx-grid>
 </div>

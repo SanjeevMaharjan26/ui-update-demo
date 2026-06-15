@@ -22,7 +22,7 @@ export class RequisitionAddDialogComponent {
       requestedBy: ['', Validators.required],
       department: ['', Validators.required],
       requiredDate: ['', Validators.required],
-      estimatedCost: [0, [Validators.required, Validators.min(0)]],
+      estimatedCost: [null, [Validators.required, Validators.min(0)]],
     });
   }
 

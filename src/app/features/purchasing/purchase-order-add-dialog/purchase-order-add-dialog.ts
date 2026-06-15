@@ -17,7 +17,7 @@ export class PurchaseOrderAddDialogComponent {
   ) {
     this.form = this.fb.group({
       supplierName: ['', Validators.required],
-      orderDate: [new Date().toISOString().split('T')[0], Validators.required],
+      orderDate: ['', Validators.required],
       expectedDate: ['', Validators.required],
       notes: [''],
     });

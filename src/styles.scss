@@ -61,6 +61,29 @@ body {
 
 .mat-elevation-0 { box-shadow: none !important; }
 
+// Dialog action button spacing
+mat-dialog-actions {
+  display: flex;
+  gap: 8px;
+}
+
+// Dialog form layout (shared across feature dialogs)
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
 // Shared form field
 .nx-form-field {
   width: 100%;

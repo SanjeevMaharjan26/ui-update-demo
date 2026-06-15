@@ -3,7 +3,7 @@
 </nx-page-header>
 <div class="page-content">
   <nx-action-bar>
-    <button mat-raised-button color="primary"><mat-icon>person_add</mat-icon> Invite User</button>
+    <button mat-raised-button color="primary" (click)="openInviteUserDialog()"><mat-icon>person_add</mat-icon> Invite User</button>
     <button mat-stroked-button><mat-icon>group</mat-icon> Manage Roles</button>
   </nx-action-bar>
   <nx-grid mode="simple" [columns]="columns" [data]="users"></nx-grid>

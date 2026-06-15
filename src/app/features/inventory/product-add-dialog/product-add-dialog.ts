@@ -22,9 +22,9 @@ export class ProductAddDialogComponent {
       name: ['', Validators.required],
       category: ['', Validators.required],
       status: ['active', Validators.required],
-      stockQty: [0, [Validators.required, Validators.min(0)]],
-      reorderLevel: [0, [Validators.required, Validators.min(0)]],
-      unitPrice: [0, [Validators.required, Validators.min(0)]],
+      stockQty: [null, [Validators.required, Validators.min(0)]],
+      reorderLevel: [null, [Validators.required, Validators.min(0)]],
+      unitPrice: [null, [Validators.required, Validators.min(0)]],
       supplier: [''],
     });
   }
