@@ -31,3 +31,7 @@ export const WithActions: Story = {
     `,
   }),
 };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  args: { title: 'Products', subtitle: 'Manage product inventory' },
+};

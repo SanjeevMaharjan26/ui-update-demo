@@ -7,9 +7,11 @@ import { CategoryListComponent } from './category-list/category-list';
 import { StockAdjustmentComponent } from './stock-adjustment/stock-adjustment';
 import { ProductAddDialogComponent } from './product-add-dialog/product-add-dialog';
 import { CategoryAddDialogComponent } from './category-add-dialog/category-add-dialog';
+import { InventoryLayoutComponent } from './inventory-layout/inventory-layout';
 
 @NgModule({
   declarations: [
+    InventoryLayoutComponent,
     ProductListComponent,
     ProductDetailComponent,
     CategoryListComponent,

@@ -3,6 +3,7 @@
 @use 'styles/typography';
 @use 'styles/legacy';
 @use 'styles/tables';
+@import './app/features/inventory/inventory.theme';
 
 // Angular Material M3 theme — customised toward blue-grey palette
 html {

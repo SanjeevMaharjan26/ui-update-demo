@@ -46,3 +46,18 @@ export const SaveDisabled: Story = {
     `,
   }),
 };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  args: { title: 'Add Item', saveDisabled: false },
+  render: args => ({
+    props: args,
+    template: `
+      <nx-dialog-form-wrapper
+        title="${args.title}"
+        [saveDisabled]="${args.saveDisabled}"
+        (save)="save()" (cancel)="cancel()">
+        <p>Form content goes here.</p>
+      </nx-dialog-form-wrapper>
+    `,
+  }),
+};

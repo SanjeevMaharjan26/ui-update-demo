@@ -4,8 +4,8 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 10px 0;
+  gap: var(--nx-action-bar-gap, 8px);
+  padding: var(--nx-action-bar-padding, 10px 0);
   margin-bottom: 16px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--nx-action-bar-border, #e0e0e0);
 }

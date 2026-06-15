@@ -11,34 +11,40 @@
 
   &__table {
     overflow-x: auto;
-    border: 1px solid #cfd8dc;
+    border: 1px solid var(--nx-grid-border, #cfd8dc);
     border-bottom: none;
+    border-radius: var(--nx-grid-radius, 0);
+    box-shadow: var(--nx-grid-shadow, none);
   }
 
   .nx-grid-table {
     width: 100%;
 
     .mat-mdc-header-cell {
-      background: #eceff1;
-      color: #546e7a;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
+      background: var(--nx-grid-header-bg, #eceff1);
+      color: var(--nx-grid-header-color, #546e7a);
+      font-size: var(--nx-grid-header-size, 11px);
+      font-weight: var(--nx-grid-header-weight, 600);
+      text-transform: var(--nx-grid-header-transform, uppercase);
       letter-spacing: 0.5px;
-      border-right: 1px solid #cfd8dc;
-      padding: 0 12px;
+      border-right: 1px solid var(--nx-grid-border, #cfd8dc);
+      padding: var(--nx-grid-header-padding, 0 12px);
     }
 
     .mat-mdc-cell {
-      border-right: 1px solid #e0e0e0;
-      padding: 0 12px;
+      border-right: 1px solid var(--nx-grid-cell-border, #e0e0e0);
+      padding: var(--nx-grid-cell-padding, 0 12px);
       font-size: 13px;
-      color: #37474f;
+      color: var(--nx-grid-cell-color, #37474f);
     }
 
     .mat-mdc-row {
-      &:nth-child(even) { background: #fafafa; }
-      &:hover { background: #e3f2fd !important; cursor: pointer; }
+      &:nth-child(even) { background: var(--nx-grid-row-even-bg, #fafafa); }
+      &:hover { background: var(--nx-grid-row-hover-bg, #e3f2fd) !important; cursor: pointer; }
+    }
+
+    .mat-mdc-row.selected {
+      background: var(--nx-grid-row-selected-bg, #e3f2fd) !important;
     }
 
     .index-col {
@@ -62,7 +68,7 @@
   }
 
   mat-paginator {
-    border: 1px solid #cfd8dc;
-    background: #fafafa;
+    border: 1px solid var(--nx-grid-border, #cfd8dc);
+    background: var(--nx-grid-paginator-bg, #fafafa);
   }
 }

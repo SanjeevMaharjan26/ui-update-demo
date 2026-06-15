@@ -1,7 +1,7 @@
 .nx-page-header {
-  background: #eceff1;
+  background: var(--nx-header-bg, #eceff1);
   padding: 12px 24px 14px;
-  border-bottom: 1px solid #cfd8dc;
+  border-bottom: 1px solid var(--nx-header-border, #cfd8dc);
   margin-bottom: 0;
 
   .breadcrumb {
@@ -13,12 +13,12 @@
     gap: 0;
 
     .crumb-link {
-      color: #1976d2;
+      color: var(--nx-header-crumb-link, #1976d2);
       text-decoration: none;
       &:hover { text-decoration: underline; }
     }
 
-    .crumb-text { color: #607d8b; }
+    .crumb-text { color: var(--nx-header-crumb-text, #607d8b); }
 
     .crumb-sep {
       font-size: 14px;
@@ -29,7 +29,7 @@
       margin: 0 2px;
     }
 
-    .crumb-current { color: #546e7a; font-weight: 500; }
+    .crumb-current { color: var(--nx-header-crumb-current, #546e7a); font-weight: 500; }
   }
 
   .header-row {
@@ -39,16 +39,16 @@
   }
 
   .page-title {
-    font-size: 20px;
-    font-weight: 400;
+    font-size: var(--nx-header-title-size, 20px);
+    font-weight: var(--nx-header-title-weight, 400);
     margin: 0;
-    color: #263238;
+    color: var(--nx-header-title-color, #263238);
     line-height: 1.2;
   }
 
   .page-subtitle {
     font-size: 13px;
-    color: #607d8b;
+    color: var(--nx-header-subtitle-color, #607d8b);
     margin: 4px 0 0;
   }
 }

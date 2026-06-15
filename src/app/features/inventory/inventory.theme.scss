@@ -1,0 +1,259 @@
+// ─── Inventory Module Theme ─────────────────────────────────────────
+// All styles scoped to .inventory-module. Zero effect outside inventory.
+// Shared components use var(--nx-*, fallback) — the values here override
+// the fallbacks only when rendered inside .inventory-module.
+// ────────────────────────────────────────────────────────────────────
+
+.inventory-module {
+  // ── CSS Custom Properties (design tokens) ──────────────────────
+  --nx-primary:            #0D9488;
+  --nx-primary-dark:       #0F766E;
+  --nx-primary-light:      #CCFBF1;
+  --nx-bg-page:            #F9FAFB;
+  --nx-bg-form:            #F3F4F6;
+  --nx-bg-white:           #FFFFFF;
+  --nx-border:             #E5E7EB;
+  --nx-border-dark:        #D1D5DB;
+  --nx-text:               #111827;
+  --nx-text-secondary:     #6B7280;
+  --nx-text-muted:         #9CA3AF;
+  --nx-backdrop:           rgba(0, 0, 0, 0.45);
+
+  // Radius tokens
+  --nx-radius-dialog:      12px;
+  --nx-radius-card:        8px;
+  --nx-radius-button:      8px;
+  --nx-radius-input:       6px;
+  --nx-radius-chip:        4px;
+
+  // Shadow tokens
+  --nx-shadow-dialog:      0 20px 60px rgba(0, 0, 0, 0.18);
+  --nx-shadow-card:        0 1px 3px rgba(0, 0, 0, 0.08);
+
+  // ── Shared component custom properties ─────────────────────────
+  // Card
+  --nx-card-bg:                var(--nx-bg-white);
+  --nx-card-border:            var(--nx-border);
+  --nx-card-radius:            var(--nx-radius-card);
+  --nx-card-shadow:            var(--nx-shadow-card);
+  --nx-card-header-border:     var(--nx-border);
+  --nx-card-title-size:        14px;
+  --nx-card-title-weight:      600;
+  --nx-card-title-color:       var(--nx-text);
+  --nx-card-title-transform:   none;
+
+  // Grid / Table
+  --nx-grid-border:            var(--nx-border);
+  --nx-grid-radius:            var(--nx-radius-card);
+  --nx-grid-shadow:            var(--nx-shadow-card);
+  --nx-grid-header-bg:         var(--nx-bg-page);
+  --nx-grid-header-color:      var(--nx-text-secondary);
+  --nx-grid-header-size:       12px;
+  --nx-grid-header-weight:     600;
+  --nx-grid-header-transform:  none;
+  --nx-grid-header-padding:    10px 14px;
+  --nx-grid-cell-border:       var(--nx-border);
+  --nx-grid-cell-padding:      11px 14px;
+  --nx-grid-cell-color:        var(--nx-text);
+  --nx-grid-row-even-bg:       transparent;
+  --nx-grid-row-hover-bg:      #F0FDFA;
+  --nx-grid-row-selected-bg:   #F0FDFA;
+  --nx-grid-paginator-bg:      var(--nx-bg-white);
+
+  // Status Chips
+  --nx-chip-padding:           2px 8px;
+  --nx-chip-size:              11px;
+  --nx-chip-radius:            var(--nx-radius-chip);
+  --nx-chip-transform:         none;
+  --nx-chip-draft-bg:          #F3F4F6;
+  --nx-chip-draft-color:       #6B7280;
+  --nx-chip-pending-bg:        #FEF3C7;
+  --nx-chip-pending-color:     #92400E;
+  --nx-chip-approved-bg:       #CCFBF1;
+  --nx-chip-approved-color:    #0F766E;
+  --nx-chip-complete-bg:       #D1FAE5;
+  --nx-chip-complete-color:    #065F46;
+  --nx-chip-received-bg:       #CCFBF1;
+  --nx-chip-received-color:    #0F766E;
+  --nx-chip-rejected-bg:       #FEE2E2;
+  --nx-chip-rejected-color:    #991B1B;
+  --nx-chip-active-bg:         #D1FAE5;
+  --nx-chip-active-color:      #065F46;
+  --nx-chip-inactive-bg:       #F3F4F6;
+  --nx-chip-inactive-color:    #6B7280;
+
+  // Badges
+  --nx-badge-padding:          2px 8px;
+  --nx-badge-size:             11px;
+  --nx-badge-radius:           var(--nx-radius-chip);
+  --nx-badge-transform:        none;
+  --nx-badge-default-bg:       #F3F4F6;
+  --nx-badge-default-color:    #6B7280;
+  --nx-badge-primary-bg:       #CCFBF1;
+  --nx-badge-primary-color:    #0F766E;
+  --nx-badge-accent-bg:        #D1FAE5;
+  --nx-badge-accent-color:     #065F46;
+  --nx-badge-warn-bg:          #FEE2E2;
+  --nx-badge-warn-color:       #991B1B;
+  --nx-badge-info-bg:          #DBEAFE;
+  --nx-badge-info-color:       #1E40AF;
+
+  // Action bar
+  --nx-action-bar-gap:         10px;
+  --nx-action-bar-padding:     12px 0;
+  --nx-action-bar-border:      var(--nx-border);
+
+  // Page header
+  --nx-header-bg:              var(--nx-bg-white);
+  --nx-header-border:          var(--nx-border);
+  --nx-header-crumb-link:      var(--nx-primary);
+  --nx-header-crumb-text:      var(--nx-text-secondary);
+  --nx-header-crumb-current:   var(--nx-text);
+  --nx-header-title-size:      22px;
+  --nx-header-title-weight:    700;
+  --nx-header-title-color:     var(--nx-text);
+  --nx-header-subtitle-color:  var(--nx-text-secondary);
+
+  // Empty state
+  --nx-empty-color:            var(--nx-text-secondary);
+  --nx-empty-icon-color:       var(--nx-border-dark);
+  --nx-empty-message-color:    var(--nx-text-secondary);
+
+  // Dialog
+  --nx-dialog-title-size:      16px;
+  --nx-dialog-title-weight:    700;
+  --nx-dialog-subtitle-size:   13px;
+  --nx-dialog-subtitle-color:  var(--nx-text-secondary);
+
+  // ── Counter-override _legacy.scss !important rules ──────────────
+  // _legacy.scss forces all corners to 2px/0px globally — these
+  // restore the design-token values inside .inventory-module.
+
+  // Buttons (counter border-radius: 2px !important)
+  .mat-mdc-button,
+  .mat-mdc-raised-button,
+  .mat-mdc-outlined-button,
+  .mat-mdc-unelevated-button {
+    border-radius: var(--nx-radius-button) !important;
+  }
+
+  // Form-field outlines (counter border-radius: 0 !important)
+  // Restore MDC-style per-segment border-radius:
+  //   leading → top-left + bottom-left
+  //   trailing → top-right + bottom-right
+  // Notch-facing edges stay square (0) so the floating label doesn't gap.
+  .mat-mdc-form-field {
+    .mdc-notched-outline__leading {
+      border-radius: var(--nx-radius-input) 0 0 var(--nx-radius-input) !important;
+    }
+    .mdc-notched-outline__trailing {
+      border-radius: 0 var(--nx-radius-input) var(--nx-radius-input) 0 !important;
+    }
+  }
+
+  // Chips (counter border-radius: 2px !important)
+  .mat-mdc-chip {
+    border-radius: var(--nx-radius-chip) !important;
+  }
+
+  // Dialog surface (counter border-radius: 0 !important)
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: var(--nx-radius-dialog) !important;
+  }
+
+  // Select & menu panels (counter border-radius: 0/2px !important)
+  .mat-mdc-select-panel {
+    border-radius: var(--nx-radius-input) !important;
+  }
+  .mat-mdc-menu-panel {
+    border-radius: var(--nx-radius-input) !important;
+  }
+
+  // Snackbar (counter border-radius: 2px !important)
+  .mat-mdc-snack-bar-container {
+    border-radius: var(--nx-radius-button) !important;
+  }
+
+  // MatCard (counter border-radius: 0 !important)
+  .mat-mdc-card {
+    border-radius: var(--nx-radius-card) !important;
+  }
+
+  // ── Component-level overrides ──────────────────────────────────
+
+  // Table container
+  .mat-mdc-table {
+    border: 1px solid var(--nx-grid-border);
+    border-radius: var(--nx-grid-radius);
+    overflow: hidden;
+    box-shadow: var(--nx-grid-shadow);
+  }
+
+  // Header cells
+  .mat-mdc-header-cell {
+    background: var(--nx-grid-header-bg);
+    color: var(--nx-grid-header-color);
+    font-size: var(--nx-grid-header-size);
+    font-weight: var(--nx-grid-header-weight);
+    padding: var(--nx-grid-header-padding);
+  }
+
+  // Body cells
+  .mat-mdc-cell {
+    padding: var(--nx-grid-cell-padding);
+    color: var(--nx-grid-cell-color);
+  }
+
+  // Row hover
+  .mat-mdc-row:hover {
+    background: var(--nx-grid-row-hover-bg) !important;
+  }
+
+  // Paginator
+  .mat-mdc-paginator {
+    background: var(--nx-grid-paginator-bg);
+    border: 1px solid var(--nx-grid-border);
+    border-top: none;
+    border-radius: 0 0 var(--nx-grid-radius) var(--nx-grid-radius);
+  }
+
+  // Checkbox accent color
+  .mdc-checkbox {
+    --mdc-checkbox-selected-checkmark-color: #fff;
+    --mdc-checkbox-selected-focus-icon-color: var(--nx-primary);
+    --mdc-checkbox-selected-hover-icon-color: var(--nx-primary);
+    --mdc-checkbox-selected-icon-color: var(--nx-primary);
+    --mdc-checkbox-selected-pressed-icon-color: var(--nx-primary-dark);
+    --mdc-checkbox-unselected-focus-icon-color: var(--nx-text-secondary);
+    --mdc-checkbox-unselected-hover-icon-color: var(--nx-text-secondary);
+  }
+
+  // Dialog title
+  .mat-mdc-dialog-title {
+    font-size: var(--nx-dialog-title-size);
+    font-weight: var(--nx-dialog-title-weight);
+  }
+
+  // Outlined button color
+  .mat-mdc-outlined-button:not(:disabled) {
+    border-color: var(--nx-primary);
+    color: var(--nx-primary);
+  }
+
+  // Filled button color
+  .mat-mdc-unelevated-button:not(:disabled),
+  .mat-mdc-raised-button:not(:disabled) {
+    background: var(--nx-primary);
+    color: #fff !important;
+  }
+
+  // Input focus border-color
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined.mdc-text-field--focused
+  .mdc-notched-outline__leading,
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined.mdc-text-field--focused
+  .mdc-notched-outline__notch,
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined.mdc-text-field--focused
+  .mdc-notched-outline__trailing {
+    border-color: var(--nx-primary);
+  }
+}

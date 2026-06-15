@@ -130,6 +130,40 @@ export const FormRow: Story = {
   }),
 };
 
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  render: () => ({
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px; padding: 16px; max-width: 400px;">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Standard Input</mat-label>
+          <input matInput placeholder="e.g. John Doe">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Number Input</mat-label>
+          <input matInput type="number" placeholder="0">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Textarea</mat-label>
+          <textarea matInput rows="3" placeholder="Enter notes…"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="user@example.com">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Date</mat-label>
+          <input matInput type="date">
+        </mat-form-field>
+      </div>
+    `,
+  }),
+};
+
 export const FullWidth: Story = {
   render: () => ({
     template: `

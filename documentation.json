@@ -3502,6 +3502,42 @@
             "extends": []
         },
         {
+            "name": "InventoryLayoutComponent",
+            "id": "component-InventoryLayoutComponent-930c36d9bc60a0e914806aceb86f97fc6b62dfa762113b0dc7404a8dc41f0b1df55f93010cc7b5f9a9ddd78f8039827a170749937e18402efe6141387c2c8e77",
+            "file": "src/app/features/inventory/inventory-layout/inventory-layout.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "host": {},
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-inventory-layout",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<router-outlet></router-outlet>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-inventory-layout',\n  standalone: false,\n  template: '<router-outlet></router-outlet>',\n  host: { class: 'inventory-module' },\n})\nexport class InventoryLayoutComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
             "name": "InventoryReportComponent",
             "id": "component-InventoryReportComponent-d5b7f6884e2c1bdbd5fca4226b9bb261b7209c5e14119a2cb7146b6f1b4a1d7d58172c35d68f44dc148d0e7ca80903a36d363c26a3227d660cf853e57a2cb938",
             "file": "src/app/features/reports/inventory-report/inventory-report.ts",
@@ -7483,13 +7519,13 @@
         },
         {
             "name": "InventoryModule",
-            "id": "module-InventoryModule-35d4a7a1efeaef4fdf41e3e674da83743038f909b2576280c47db27314a21eead93ca91b95a8a0b043e14d1fa2c6a4dd4afda60ac66f317d0c90373149d42763",
+            "id": "module-InventoryModule-aa514e2aa005202a4368dd96b29b4a9cc2f063113be92157bc4f4394c1983b05c0d65d40a42a2c3fc31aab6e9256e0c765576f54434ca81f0460793a44e0d9ad",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/features/inventory/inventory-module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { SharedModule } from '../../shared/shared-module';\nimport { InventoryRoutingModule } from './inventory-routing-module';\nimport { ProductListComponent } from './product-list/product-list';\nimport { ProductDetailComponent } from './product-detail/product-detail';\nimport { CategoryListComponent } from './category-list/category-list';\nimport { StockAdjustmentComponent } from './stock-adjustment/stock-adjustment';\nimport { ProductAddDialogComponent } from './product-add-dialog/product-add-dialog';\nimport { CategoryAddDialogComponent } from './category-add-dialog/category-add-dialog';\n\n@NgModule({\n  declarations: [\n    ProductListComponent,\n    ProductDetailComponent,\n    CategoryListComponent,\n    StockAdjustmentComponent,\n    ProductAddDialogComponent,\n    CategoryAddDialogComponent,\n  ],\n  imports: [SharedModule, InventoryRoutingModule],\n})\nexport class InventoryModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { SharedModule } from '../../shared/shared-module';\nimport { InventoryRoutingModule } from './inventory-routing-module';\nimport { ProductListComponent } from './product-list/product-list';\nimport { ProductDetailComponent } from './product-detail/product-detail';\nimport { CategoryListComponent } from './category-list/category-list';\nimport { StockAdjustmentComponent } from './stock-adjustment/stock-adjustment';\nimport { ProductAddDialogComponent } from './product-add-dialog/product-add-dialog';\nimport { CategoryAddDialogComponent } from './category-add-dialog/category-add-dialog';\nimport { InventoryLayoutComponent } from './inventory-layout/inventory-layout';\n\n@NgModule({\n  declarations: [\n    InventoryLayoutComponent,\n    ProductListComponent,\n    ProductDetailComponent,\n    CategoryListComponent,\n    StockAdjustmentComponent,\n    ProductAddDialogComponent,\n    CategoryAddDialogComponent,\n  ],\n  imports: [SharedModule, InventoryRoutingModule],\n})\nexport class InventoryModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -7503,6 +7539,9 @@
                         },
                         {
                             "name": "CategoryListComponent"
+                        },
+                        {
+                            "name": "InventoryLayoutComponent"
                         },
                         {
                             "name": "ProductAddDialogComponent"
@@ -7545,13 +7584,13 @@
         },
         {
             "name": "InventoryRoutingModule",
-            "id": "module-InventoryRoutingModule-8cd8bcdeed6657ada60dd498ad0004d35b3897d6c38a91e8470c5be112bca304732a87cd201ef570bdfd68ac40dd35eedb60fa9f2a40fbb896b0c5fbf2d3b983",
+            "id": "module-InventoryRoutingModule-ded4194eca0cdce73d2c0e9ab6e7bf845a4a52f3f3cc45193f4d5a38b652da419e8437dce2f48abe79ad80769d16ce91c9b3bae8620dfd52ad4a6ac78a2c770e",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/features/inventory/inventory-routing-module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { ProductListComponent } from './product-list/product-list';\nimport { ProductDetailComponent } from './product-detail/product-detail';\nimport { CategoryListComponent } from './category-list/category-list';\nimport { StockAdjustmentComponent } from './stock-adjustment/stock-adjustment';\n\nconst routes: Routes = [\n  { path: '', redirectTo: 'products', pathMatch: 'full' },\n  { path: 'products', component: ProductListComponent },\n  { path: 'products/:id', component: ProductDetailComponent },\n  { path: 'stock', component: ProductListComponent },\n  { path: 'categories', component: CategoryListComponent },\n  { path: 'adjustments', component: StockAdjustmentComponent },\n];\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class InventoryRoutingModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { InventoryLayoutComponent } from './inventory-layout/inventory-layout';\nimport { ProductListComponent } from './product-list/product-list';\nimport { ProductDetailComponent } from './product-detail/product-detail';\nimport { CategoryListComponent } from './category-list/category-list';\nimport { StockAdjustmentComponent } from './stock-adjustment/stock-adjustment';\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: InventoryLayoutComponent,\n    children: [\n      { path: '', redirectTo: 'products', pathMatch: 'full' },\n      { path: 'products', component: ProductListComponent },\n      { path: 'products/:id', component: ProductDetailComponent },\n      { path: 'stock', component: ProductListComponent },\n      { path: 'categories', component: CategoryListComponent },\n      { path: 'adjustments', component: StockAdjustmentComponent },\n    ],\n  },\n];\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class InventoryRoutingModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -8147,7 +8186,18 @@
                 "defaultValue": "{\n  draft: 'Draft',\n  pending: 'Pending',\n  approved: 'Approved',\n  complete: 'Complete',\n  received: 'Received',\n  rejected: 'Rejected',\n  active: 'Active',\n  inactive: 'Inactive',\n}"
             }
         ],
-        "functions": [],
+        "functions": [
+            {
+                "name": "withInventoryTheme",
+                "file": "src/app/shared/storybook-decorators.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "args": []
+            }
+        ],
         "typealiases": [
             {
                 "name": "BadgeColor",
@@ -8320,7 +8370,20 @@
                 }
             ]
         },
-        "groupedFunctions": {},
+        "groupedFunctions": {
+            "src/app/shared/storybook-decorators.ts": [
+                {
+                    "name": "withInventoryTheme",
+                    "file": "src/app/shared/storybook-decorators.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "args": []
+                }
+            ]
+        },
         "groupedEnumerations": {},
         "groupedTypeAliases": {
             "src/app/shared/components/data-display/nx-badge/nx-badge.ts": [
@@ -8465,70 +8528,16 @@
                 "filename": "src/app/app-routing-module.ts"
             },
             {
-                "name": "ProductListComponent",
-                "kind": "component",
-                "path": "products",
-                "filename": "src/app/features/inventory/inventory-routing-module.ts"
-            },
-            {
-                "name": "ProductDetailComponent",
-                "kind": "component",
-                "path": "products/:id",
-                "filename": "src/app/features/inventory/inventory-routing-module.ts"
-            },
-            {
-                "name": "ProductListComponent",
-                "kind": "component",
-                "path": "stock",
-                "filename": "src/app/features/inventory/inventory-routing-module.ts"
-            },
-            {
-                "name": "CategoryListComponent",
-                "kind": "component",
-                "path": "categories",
-                "filename": "src/app/features/inventory/inventory-routing-module.ts"
-            },
-            {
-                "name": "StockAdjustmentComponent",
-                "kind": "component",
-                "path": "adjustments",
-                "filename": "src/app/features/inventory/inventory-routing-module.ts"
-            },
-            {
                 "name": "DashboardComponent",
                 "kind": "component",
                 "path": "",
                 "filename": "src/app/features/dashboard/dashboard-routing-module.ts"
             },
             {
-                "name": "PurchaseOrderListComponent",
+                "name": "InventoryLayoutComponent",
                 "kind": "component",
-                "path": "orders",
-                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
-            },
-            {
-                "name": "PurchaseOrderDetailComponent",
-                "kind": "component",
-                "path": "orders/:id",
-                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
-            },
-            {
-                "name": "RequisitionListComponent",
-                "kind": "component",
-                "path": "requisitions",
-                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
-            },
-            {
-                "name": "RequisitionListComponent",
-                "kind": "component",
-                "path": "approvals",
-                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
-            },
-            {
-                "name": "ReceivingComponent",
-                "kind": "component",
-                "path": "receiving",
-                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
+                "path": "",
+                "filename": "src/app/features/inventory/inventory-routing-module.ts"
             },
             {
                 "name": "ReportsDashboardComponent",
@@ -8577,6 +8586,36 @@
                 "kind": "component",
                 "path": "audit",
                 "filename": "src/app/features/settings/settings-routing-module.ts"
+            },
+            {
+                "name": "PurchaseOrderListComponent",
+                "kind": "component",
+                "path": "orders",
+                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
+            },
+            {
+                "name": "PurchaseOrderDetailComponent",
+                "kind": "component",
+                "path": "orders/:id",
+                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
+            },
+            {
+                "name": "RequisitionListComponent",
+                "kind": "component",
+                "path": "requisitions",
+                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
+            },
+            {
+                "name": "RequisitionListComponent",
+                "kind": "component",
+                "path": "approvals",
+                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
+            },
+            {
+                "name": "ReceivingComponent",
+                "kind": "component",
+                "path": "receiving",
+                "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
             },
             {
                 "name": "SupplierListComponent",
@@ -8786,6 +8825,15 @@
                 "name": "CategoryListComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/features/inventory/inventory-layout/inventory-layout.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InventoryLayoutComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -9393,6 +9441,16 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "MATERIAL_MODULES",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/storybook-decorators.ts",
+                "type": "function",
+                "linktype": "miscellaneous",
+                "linksubtype": "function",
+                "name": "withInventoryTheme",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

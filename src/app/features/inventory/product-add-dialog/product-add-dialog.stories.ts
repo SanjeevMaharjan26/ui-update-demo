@@ -88,6 +88,55 @@ export const Filled: Story = {
   },
 };
 
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step('Fill SKU', async () => {
+      const input = canvas.getByLabelText(/^sku$/i);
+      await userEvent.type(input, 'PRD-001');
+    });
+
+    await step('Fill Product Name', async () => {
+      const input = canvas.getByLabelText(/^product name$/i);
+      await userEvent.type(input, 'Industrial Bearing');
+    });
+
+    await step('Fill Category', async () => {
+      const input = canvas.getByLabelText(/^category$/i);
+      await userEvent.type(input, 'Bearings');
+    });
+
+    await step('Fill Unit Price', async () => {
+      const input = canvas.getByLabelText(/^unit price$/i);
+      await userEvent.type(input, '12.50');
+    });
+
+    await step('Fill Stock Qty', async () => {
+      const input = canvas.getByLabelText(/^stock qty$/i);
+      await userEvent.type(input, '100');
+    });
+
+    await step('Fill Reorder Level', async () => {
+      const input = canvas.getByLabelText(/^reorder level$/i);
+      await userEvent.type(input, '10');
+    });
+
+    await step('Fill Supplier', async () => {
+      const input = canvas.getByLabelText(/^supplier$/i);
+      await userEvent.type(input, 'Acme Parts');
+    });
+
+    await step('Verify Save button is enabled', async () => {
+      await waitFor(() => {
+        const saveBtn = canvas.getByRole('button', { name: /save/i });
+        expect(saveBtn).not.toBeDisabled();
+      });
+    });
+  },
+};
+
 export const ValidationErrors: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

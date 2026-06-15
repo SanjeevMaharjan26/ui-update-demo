@@ -36,3 +36,14 @@ export const WithFilter: Story = {
     `,
   }),
 };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  render: () => ({
+    template: `
+      <nx-action-bar>
+        <button mat-raised-button color="primary"><mat-icon>add</mat-icon> New</button>
+        <button mat-stroked-button><mat-icon>download</mat-icon> Export</button>
+      </nx-action-bar>
+    `,
+  }),
+};

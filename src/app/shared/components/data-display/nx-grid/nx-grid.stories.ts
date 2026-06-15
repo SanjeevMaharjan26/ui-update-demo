@@ -48,3 +48,7 @@ export const Empty: Story = {
 export const WithIndex: Story = {
   args: { mode: 'simple', columns: sampleColumns, data: sampleData, showIndex: true },
 };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  args: { mode: 'simple', columns: sampleColumns, data: sampleData },
+};

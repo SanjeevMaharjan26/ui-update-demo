@@ -22,3 +22,7 @@ export const Pending: Story = { args: { status: 'pending' } };
 export const Approved: Story = { args: { status: 'approved' } };
 export const Rejected: Story = { args: { status: 'rejected' } };
 export const Draft: Story = { args: { status: 'draft' } };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  args: { status: 'active' },
+};

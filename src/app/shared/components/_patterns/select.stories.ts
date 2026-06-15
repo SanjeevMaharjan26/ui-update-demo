@@ -87,6 +87,24 @@ export const WithValidation: Story = {
   }),
 };
 
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  render: () => ({
+    template: `
+      <div style="padding: 16px; max-width: 400px;">
+        <mat-form-field appearance="outline" nxFormField>
+          <mat-label>Status</mat-label>
+          <mat-select value="active">
+            <mat-option value="active">Active</mat-option>
+            <mat-option value="inactive">Inactive</mat-option>
+            <mat-option value="draft">Draft</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    `,
+  }),
+};
+
 export const InFormRow: Story = {
   render: () => ({
     template: `

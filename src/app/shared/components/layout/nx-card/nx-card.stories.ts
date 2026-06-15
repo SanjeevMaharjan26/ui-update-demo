@@ -29,3 +29,9 @@ export const WithDivider: Story = {
     template: `<nx-card title="Settings"><mat-divider></mat-divider><p>Content after divider.</p></nx-card>`,
   }),
 };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  render: () => ({
+    template: `<nx-card title="Card Title"><p>Card content goes here.</p></nx-card>`,
+  }),
+};

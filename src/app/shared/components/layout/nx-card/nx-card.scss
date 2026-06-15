@@ -1,8 +1,8 @@
 .nx-card {
-  background: #ffffff;
-  border: 1px solid #cfd8dc;
-  border-radius: 0;
-  box-shadow: none;
+  background: var(--nx-card-bg, #ffffff);
+  border: 1px solid var(--nx-card-border, #cfd8dc);
+  border-radius: var(--nx-card-radius, 0);
+  box-shadow: var(--nx-card-shadow, none);
 
   &--pad-none { padding: 0; }
   &--pad-sm   { padding: 12px; }
@@ -12,17 +12,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #eceff1;
+    border-bottom: 1px solid var(--nx-card-header-border, #eceff1);
     padding-bottom: 10px;
     margin-bottom: 12px;
   }
 
   &__title {
-    font-size: 14px;
-    font-weight: 500;
-    color: #455a64;
+    font-size: var(--nx-card-title-size, 14px);
+    font-weight: var(--nx-card-title-weight, 500);
+    color: var(--nx-card-title-color, #455a64);
     margin: 0;
-    text-transform: uppercase;
+    text-transform: var(--nx-card-title-transform, uppercase);
     letter-spacing: 0.5px;
   }
 }

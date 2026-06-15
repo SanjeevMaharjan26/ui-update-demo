@@ -19,3 +19,7 @@ export const WarnColor: Story = { args: { label: 'Urgent', color: 'warn' } };
 export const AccentColor: Story = { args: { label: 'Updated', color: 'accent' } };
 export const InfoColor: Story = { args: { label: 'Info', color: 'info' } };
 export const PrimaryColor: Story = { args: { label: 'Featured', color: 'primary' } };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  args: { label: 'Featured', color: 'primary' },
+};

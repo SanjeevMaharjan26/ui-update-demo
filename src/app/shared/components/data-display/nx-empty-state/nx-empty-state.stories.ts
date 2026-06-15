@@ -23,3 +23,7 @@ export const WithAction: Story = {
 export const CustomIcon: Story = {
   args: { icon: 'error_outline', message: 'Something went wrong' },
 };
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  args: { icon: 'inventory_2', message: 'No items found' },
+};

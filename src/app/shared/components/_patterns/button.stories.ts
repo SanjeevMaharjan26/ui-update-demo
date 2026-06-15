@@ -67,6 +67,24 @@ export const WithIcons: Story = {
   }),
 };
 
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  render: () => ({
+    template: `
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 16px;">
+        <button mat-button>Basic</button>
+        <button mat-raised-button color="primary">Raised Primary</button>
+        <button mat-raised-button color="accent">Raised Accent</button>
+        <button mat-stroked-button>Stroked</button>
+        <button mat-flat-button color="primary">Flat Primary</button>
+        <button mat-icon-button color="primary"><mat-icon>add</mat-icon></button>
+        <button mat-mini-fab color="primary"><mat-icon>edit</mat-icon></button>
+        <button mat-fab color="primary"><mat-icon>save</mat-icon></button>
+      </div>
+    `,
+  }),
+};
+
 export const InActionBar: Story = {
   render: () => ({
     template: `
