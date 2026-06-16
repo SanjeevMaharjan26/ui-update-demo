@@ -41,6 +41,35 @@ export const Filled: Story = {
   },
 };
 
+export const InventoryNewDesign: Story = {
+  decorators: [(storyFn) => { const story = storyFn(); return { ...story, template: `<div class="inventory-module" style="padding:24px">${story.template}</div>` }; }],
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step('Fill Supplier', async () => {
+      const input = canvas.getByLabelText(/^supplier$/i);
+      await userEvent.type(input, 'Acme Parts Ltd');
+    });
+
+    await step('Fill Order Date', async () => {
+      const input = canvas.getByLabelText(/^order date$/i);
+      await userEvent.type(input, '2026-06-08');
+    });
+
+    await step('Fill Expected Delivery', async () => {
+      const input = canvas.getByLabelText(/^expected delivery$/i);
+      await userEvent.type(input, '2026-07-08');
+    });
+
+    await step('Verify Save button is enabled', async () => {
+      await waitFor(() => {
+        const saveBtn = canvas.getByRole('button', { name: /save/i });
+        expect(saveBtn).not.toBeDisabled();
+      });
+    });
+  },
+};
+
 export const ValidationErrors: Story = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);

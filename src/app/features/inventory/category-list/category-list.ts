@@ -28,7 +28,7 @@ export class CategoryListComponent implements OnInit {
   ngOnInit(): void { this.service.getCategories().subscribe(c => (this.categories = c)); }
 
   openAddCategoryDialog(): void {
-    const ref = this.dialog.open(CategoryAddDialogComponent, { width: '500px' });
+    const ref = this.dialog.open(CategoryAddDialogComponent, { width: '500px', panelClass: 'inventory-dialog-panel' });
     ref.afterClosed().subscribe(result => {
       if (result) {
         this.service.addCategory(result).subscribe(() => {

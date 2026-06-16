@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
 
 export type TableColumn = GridColumn;
 
@@ -27,15 +28,22 @@ export class NxGridComponent implements OnChanges, AfterViewInit {
   @Input() pageSize = 10;
   @Input() showSearch = false;
   @Input() searchPlaceholder = 'Search…';
+  @Input() showSelection = false;
+  @Input() trackBy: (row: any) => any = (row: any) => row;
+
+  @Output() selectionChange = new EventEmitter<any[]>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   dataSource = new MatTableDataSource<any>([]);
+  selection = new SelectionModel<any>(true, []);
 
   get displayedColumns(): string[] {
     const cols = this.columns.map(c => c.key);
-    return this.showIndex ? ['_index', ...cols] : cols;
+    const prefix = this.showIndex ? ['_index'] : [];
+    const selection = this.showSelection ? ['_selection'] : [];
+    return [...selection, ...prefix, ...cols];
   }
 
   ngOnChanges(): void {
@@ -55,5 +63,23 @@ export class NxGridComponent implements OnChanges, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  isAllSelected(): boolean {
+    return this.selection.selected.length === this.dataSource.data.length;
+  }
+
+  toggleAllRows(): void {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.selection.select(...this.dataSource.data);
+    }
+    this.selectionChange.emit(this.selection.selected);
+  }
+
+  toggleRow(row: any): void {
+    this.selection.toggle(row);
+    this.selectionChange.emit(this.selection.selected);
   }
 }

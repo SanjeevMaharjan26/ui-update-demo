@@ -17,8 +17,8 @@
 <div class="page-content" *ngIf="form">
   <mat-tab-group [(selectedIndex)]="activeTab" class="detail-tabs">
     <mat-tab label="Details">
-      <div class="tab-content">
-        <form [formGroup]="form">
+      <nx-card class="tab-card">
+        <form [formGroup]="form" class="detail-form">
           <div class="form-grid">
             <mat-form-field appearance="outline" nxFormField>
               <mat-label>SKU <span class="req-mark"> *</span></mat-label>
@@ -63,11 +63,11 @@
             </mat-form-field>
           </div>
         </form>
-      </div>
+      </nx-card>
     </mat-tab>
 
     <mat-tab label="Stock">
-      <div class="tab-content">
+      <nx-card class="tab-card">
         <div class="stock-info">
           <div class="stock-stat">
             <span class="stock-stat__label">Current Stock</span>
@@ -82,13 +82,13 @@
             <nx-status-chip [status]="product!.stockQty > product!.reorderLevel ? 'active' : 'pending'"></nx-status-chip>
           </div>
         </div>
-      </div>
+      </nx-card>
     </mat-tab>
 
     <mat-tab label="History">
-      <div class="tab-content">
+      <nx-card class="tab-card">
         <p class="text-muted">No history records available for this product.</p>
-      </div>
+      </nx-card>
     </mat-tab>
   </mat-tab-group>
 </div>

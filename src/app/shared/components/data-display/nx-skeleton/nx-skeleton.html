@@ -1,0 +1,55 @@
+<div class="nx-skeleton">
+  <ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'card'">
+      <div class="nx-skeleton__item nx-skeleton--card" *ngFor="let _ of [].constructor(count); index as i">
+        <div class="nx-skeleton__header"></div>
+        <div class="nx-skeleton__body"></div>
+        <div class="nx-skeleton__footer"></div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'table'">
+      <div class="nx-skeleton__item nx-skeleton--table" *ngFor="let _ of [].constructor(count); index as i">
+        <div class="nx-skeleton__table-header">
+          <div class="nx-skeleton__th" style="width: 30%"></div>
+          <div class="nx-skeleton__th" style="width: 20%"></div>
+          <div class="nx-skeleton__th" style="width: 25%"></div>
+          <div class="nx-skeleton__th" style="width: 25%"></div>
+        </div>
+        <div class="nx-skeleton__table-row" *ngFor="let _ of [].constructor(4)">
+          <div class="nx-skeleton__td" style="width: 30%"></div>
+          <div class="nx-skeleton__td" style="width: 20%"></div>
+          <div class="nx-skeleton__td" style="width: 25%"></div>
+          <div class="nx-skeleton__td" style="width: 25%"></div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'circle'">
+      <div
+        class="nx-skeleton__item nx-skeleton--circle"
+        *ngFor="let _ of [].constructor(count); index as i"
+        [style.width]="width"
+        [style.height]="width"
+      ></div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'rect'">
+      <div
+        class="nx-skeleton__item nx-skeleton--rect"
+        *ngFor="let _ of [].constructor(count); index as i"
+        [style.width]="width"
+        [style.height]="height"
+      ></div>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>
+      <div
+        class="nx-skeleton__item nx-skeleton--text"
+        *ngFor="let _ of [].constructor(count); index as i"
+        [style.width]="width"
+        [style.height]="height"
+      ></div>
+    </ng-container>
+  </ng-container>
+</div>

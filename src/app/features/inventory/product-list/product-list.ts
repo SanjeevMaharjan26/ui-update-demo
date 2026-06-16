@@ -13,7 +13,6 @@ import { GridColumn } from '../../../shared/components/data-display/nx-grid/nx-g
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  selectedProducts: Product[] = [];
 
   columns: GridColumn[] = [
     { key: 'sku', header: 'SKU', sortable: true, width: '120px' },
@@ -36,11 +35,15 @@ export class ProductListComponent implements OnInit {
   }
 
   openAddProductDialog(): void {
-    const ref = this.dialog.open(ProductAddDialogComponent, { width: '600px' });
+    const ref = this.dialog.open(ProductAddDialogComponent, { width: '600px', panelClass: 'inventory-dialog-panel' });
     ref.afterClosed().subscribe(result => {
       if (result) {
         this.service.getProducts().subscribe(p => (this.products = p));
       }
     });
+  }
+
+  onSelectionChange(selected: Product[]): void {
+    // selection handled by nx-grid; add side-effects here if needed
   }
 }

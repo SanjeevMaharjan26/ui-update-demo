@@ -1,10 +1,12 @@
 // ─── Inventory Module Theme ─────────────────────────────────────────
-// All styles scoped to .inventory-module. Zero effect outside inventory.
+// Two scoping contexts:
+//   .inventory-module     → routed page content
+//   .inventory-dialog-panel → MatDialog panels opened from inventory
 // Shared components use var(--nx-*, fallback) — the values here override
-// the fallbacks only when rendered inside .inventory-module.
+// the fallbacks only when rendered inside one of these scopes.
 // ────────────────────────────────────────────────────────────────────
 
-.inventory-module {
+@mixin inventory-design-tokens {
   // ── CSS Custom Properties (design tokens) ──────────────────────
   --nx-primary:            #0D9488;
   --nx-primary-dark:       #0F766E;
@@ -127,7 +129,7 @@
 
   // ── Counter-override _legacy.scss !important rules ──────────────
   // _legacy.scss forces all corners to 2px/0px globally — these
-  // restore the design-token values inside .inventory-module.
+  // restore the design-token values inside the scope.
 
   // Buttons (counter border-radius: 2px !important)
   .mat-mdc-button,
@@ -256,4 +258,16 @@
   .mdc-notched-outline__trailing {
     border-color: var(--nx-primary);
   }
+}
+
+// ── Apply to routed page content ────────────────────────────────────
+.inventory-module {
+  @include inventory-design-tokens;
+}
+
+// ── Apply to dialogs opened from inventory ─────────────────────────
+// MatDialog renders into document body, outside .inventory-module.
+// Components pass panelClass: 'inventory-dialog-panel' on open().
+.inventory-dialog-panel {
+  @include inventory-design-tokens;
 }

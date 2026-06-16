@@ -597,12 +597,12 @@
         },
         {
             "name": "GridColumn",
-            "id": "interface-GridColumn-9883875f731cf411adc37c2e5f1434004dce4b187d6f7b8e8d1877734e6aa29ce6e6872b36a3a16343d468d439087a70e33efdb1aee0d12107d099ab8c16a80d",
+            "id": "interface-GridColumn-43c23f7db111e219e44252807dca77681d29f4697c1c03d90d36f0c07aaa9bc37ed399cc331dc33648ded168aa9506fedf5dc0ab690e5634b9d6f42f66d96327",
             "file": "src/app/shared/components/data-display/nx-grid/nx-grid.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';\nimport { MatPaginator } from '@angular/material/paginator';\nimport { MatSort } from '@angular/material/sort';\nimport { MatTableDataSource } from '@angular/material/table';\n\nexport type TableColumn = GridColumn;\n\nexport interface GridColumn {\n  key: string;\n  header: string;\n  sortable?: boolean;\n  width?: string;\n  type?: 'text' | 'status' | 'badge' | 'currency' | 'date' | 'number';\n}\n\n@Component({\n  selector: 'nx-grid',\n  standalone: false,\n  templateUrl: './nx-grid.html',\n  styleUrl: './nx-grid.scss',\n})\nexport class NxGridComponent implements OnChanges, AfterViewInit {\n  @Input() mode: 'simple' | 'advanced' = 'advanced';\n  @Input() columns: GridColumn[] = [];\n  @Input() data: any[] = [];\n  @Input() showIndex = false;\n  @Input() pageSize = 10;\n  @Input() showSearch = false;\n  @Input() searchPlaceholder = 'Search…';\n\n  @ViewChild(MatPaginator) paginator!: MatPaginator;\n  @ViewChild(MatSort) sort!: MatSort;\n\n  dataSource = new MatTableDataSource<any>([]);\n\n  get displayedColumns(): string[] {\n    const cols = this.columns.map(c => c.key);\n    return this.showIndex ? ['_index', ...cols] : cols;\n  }\n\n  ngOnChanges(): void {\n    this.dataSource.data = this.data ?? [];\n  }\n\n  ngAfterViewInit(): void {\n    if (this.mode === 'advanced') {\n      this.dataSource.paginator = this.paginator;\n      this.dataSource.sort = this.sort;\n    }\n  }\n\n  applyFilter(event: Event): void {\n    const value = (event.target as HTMLInputElement).value;\n    this.dataSource.filter = value.trim().toLowerCase();\n    if (this.dataSource.paginator) {\n      this.dataSource.paginator.firstPage();\n    }\n  }\n}\n",
+            "sourceCode": "import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';\nimport { MatPaginator } from '@angular/material/paginator';\nimport { MatSort } from '@angular/material/sort';\nimport { MatTableDataSource } from '@angular/material/table';\nimport { SelectionModel } from '@angular/cdk/collections';\n\nexport type TableColumn = GridColumn;\n\nexport interface GridColumn {\n  key: string;\n  header: string;\n  sortable?: boolean;\n  width?: string;\n  type?: 'text' | 'status' | 'badge' | 'currency' | 'date' | 'number';\n}\n\n@Component({\n  selector: 'nx-grid',\n  standalone: false,\n  templateUrl: './nx-grid.html',\n  styleUrl: './nx-grid.scss',\n})\nexport class NxGridComponent implements OnChanges, AfterViewInit {\n  @Input() mode: 'simple' | 'advanced' = 'advanced';\n  @Input() columns: GridColumn[] = [];\n  @Input() data: any[] = [];\n  @Input() showIndex = false;\n  @Input() pageSize = 10;\n  @Input() showSearch = false;\n  @Input() searchPlaceholder = 'Search…';\n  @Input() showSelection = false;\n  @Input() trackBy: (row: any) => any = (row: any) => row;\n\n  @Output() selectionChange = new EventEmitter<any[]>();\n\n  @ViewChild(MatPaginator) paginator!: MatPaginator;\n  @ViewChild(MatSort) sort!: MatSort;\n\n  dataSource = new MatTableDataSource<any>([]);\n  selection = new SelectionModel<any>(true, []);\n\n  get displayedColumns(): string[] {\n    const cols = this.columns.map(c => c.key);\n    const prefix = this.showIndex ? ['_index'] : [];\n    const selection = this.showSelection ? ['_selection'] : [];\n    return [...selection, ...prefix, ...cols];\n  }\n\n  ngOnChanges(): void {\n    this.dataSource.data = this.data ?? [];\n  }\n\n  ngAfterViewInit(): void {\n    if (this.mode === 'advanced') {\n      this.dataSource.paginator = this.paginator;\n      this.dataSource.sort = this.sort;\n    }\n  }\n\n  applyFilter(event: Event): void {\n    const value = (event.target as HTMLInputElement).value;\n    this.dataSource.filter = value.trim().toLowerCase();\n    if (this.dataSource.paginator) {\n      this.dataSource.paginator.firstPage();\n    }\n  }\n\n  isAllSelected(): boolean {\n    return this.selection.selected.length === this.dataSource.data.length;\n  }\n\n  toggleAllRows(): void {\n    if (this.isAllSelected()) {\n      this.selection.clear();\n    } else {\n      this.selection.select(...this.dataSource.data);\n    }\n    this.selectionChange.emit(this.selection.selected);\n  }\n\n  toggleRow(row: any): void {\n    this.selection.toggle(row);\n    this.selectionChange.emit(this.selection.selected);\n  }\n}\n",
             "properties": [
                 {
                     "name": "header",
@@ -612,7 +612,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 10
+                    "line": 11
                 },
                 {
                     "name": "key",
@@ -622,7 +622,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 9
+                    "line": 10
                 },
                 {
                     "name": "sortable",
@@ -632,7 +632,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 11
+                    "line": 12
                 },
                 {
                     "name": "type",
@@ -642,7 +642,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 13
+                    "line": 14
                 },
                 {
                     "name": "width",
@@ -652,7 +652,7 @@
                     "indexKey": "",
                     "optional": true,
                     "description": "",
-                    "line": 12
+                    "line": 13
                 }
             ],
             "indexSignatures": [],
@@ -4195,7 +4195,7 @@
         },
         {
             "name": "NxGridComponent",
-            "id": "component-NxGridComponent-9883875f731cf411adc37c2e5f1434004dce4b187d6f7b8e8d1877734e6aa29ce6e6872b36a3a16343d468d439087a70e33efdb1aee0d12107d099ab8c16a80d",
+            "id": "component-NxGridComponent-43c23f7db111e219e44252807dca77681d29f4697c1c03d90d36f0c07aaa9bc37ed399cc331dc33648ded168aa9506fedf5dc0ab690e5634b9d6f42f66d96327",
             "file": "src/app/shared/components/data-display/nx-grid/nx-grid.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4216,7 +4216,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 24,
+                    "line": 25,
                     "type": "GridColumn[]",
                     "decorators": []
                 },
@@ -4225,7 +4225,7 @@
                     "defaultValue": "[]",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 25,
+                    "line": 26,
                     "type": "any[]",
                     "decorators": []
                 },
@@ -4234,7 +4234,7 @@
                     "defaultValue": "'advanced'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 23,
+                    "line": 24,
                     "type": "\"simple\" | \"advanced\"",
                     "decorators": []
                 },
@@ -4243,7 +4243,7 @@
                     "defaultValue": "10",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 27,
+                    "line": 28,
                     "type": "number",
                     "decorators": []
                 },
@@ -4252,7 +4252,7 @@
                     "defaultValue": "'Search…'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 29,
+                    "line": 30,
                     "type": "string",
                     "decorators": []
                 },
@@ -4261,7 +4261,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 26,
+                    "line": 27,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -4270,12 +4270,39 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 28,
+                    "line": 29,
                     "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "showSelection",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 31,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "trackBy",
+                    "defaultValue": "(row: any) => row",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 32,
+                    "type": "function",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "selectionChange",
+                    "defaultValue": "new EventEmitter<any[]>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 34,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [
                 {
                     "name": "dataSource",
@@ -4286,7 +4313,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 34
+                    "line": 39
                 },
                 {
                     "name": "paginator",
@@ -4296,7 +4323,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 31,
+                    "line": 36,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -4308,6 +4335,17 @@
                     ]
                 },
                 {
+                    "name": "selection",
+                    "defaultValue": "new SelectionModel<any>(true, [])",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 40
+                },
+                {
                     "name": "sort",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -4315,7 +4353,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 32,
+                    "line": 37,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -4343,7 +4381,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 60,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -4361,12 +4399,22 @@
                     ]
                 },
                 {
+                    "name": "isAllSelected",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "boolean",
+                    "typeParameters": [],
+                    "line": 68,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
                     "name": "ngAfterViewInit",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 45,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -4376,9 +4424,51 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 41,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "toggleAllRows",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 72,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "toggleRow",
+                    "args": [
+                        {
+                            "name": "row",
+                            "type": "any",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 81,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "row",
+                            "type": "any",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
@@ -4390,7 +4480,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { AfterViewInit, Component, Input, OnChanges, ViewChild } from '@angular/core';\nimport { MatPaginator } from '@angular/material/paginator';\nimport { MatSort } from '@angular/material/sort';\nimport { MatTableDataSource } from '@angular/material/table';\n\nexport type TableColumn = GridColumn;\n\nexport interface GridColumn {\n  key: string;\n  header: string;\n  sortable?: boolean;\n  width?: string;\n  type?: 'text' | 'status' | 'badge' | 'currency' | 'date' | 'number';\n}\n\n@Component({\n  selector: 'nx-grid',\n  standalone: false,\n  templateUrl: './nx-grid.html',\n  styleUrl: './nx-grid.scss',\n})\nexport class NxGridComponent implements OnChanges, AfterViewInit {\n  @Input() mode: 'simple' | 'advanced' = 'advanced';\n  @Input() columns: GridColumn[] = [];\n  @Input() data: any[] = [];\n  @Input() showIndex = false;\n  @Input() pageSize = 10;\n  @Input() showSearch = false;\n  @Input() searchPlaceholder = 'Search…';\n\n  @ViewChild(MatPaginator) paginator!: MatPaginator;\n  @ViewChild(MatSort) sort!: MatSort;\n\n  dataSource = new MatTableDataSource<any>([]);\n\n  get displayedColumns(): string[] {\n    const cols = this.columns.map(c => c.key);\n    return this.showIndex ? ['_index', ...cols] : cols;\n  }\n\n  ngOnChanges(): void {\n    this.dataSource.data = this.data ?? [];\n  }\n\n  ngAfterViewInit(): void {\n    if (this.mode === 'advanced') {\n      this.dataSource.paginator = this.paginator;\n      this.dataSource.sort = this.sort;\n    }\n  }\n\n  applyFilter(event: Event): void {\n    const value = (event.target as HTMLInputElement).value;\n    this.dataSource.filter = value.trim().toLowerCase();\n    if (this.dataSource.paginator) {\n      this.dataSource.paginator.firstPage();\n    }\n  }\n}\n",
+            "sourceCode": "import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';\nimport { MatPaginator } from '@angular/material/paginator';\nimport { MatSort } from '@angular/material/sort';\nimport { MatTableDataSource } from '@angular/material/table';\nimport { SelectionModel } from '@angular/cdk/collections';\n\nexport type TableColumn = GridColumn;\n\nexport interface GridColumn {\n  key: string;\n  header: string;\n  sortable?: boolean;\n  width?: string;\n  type?: 'text' | 'status' | 'badge' | 'currency' | 'date' | 'number';\n}\n\n@Component({\n  selector: 'nx-grid',\n  standalone: false,\n  templateUrl: './nx-grid.html',\n  styleUrl: './nx-grid.scss',\n})\nexport class NxGridComponent implements OnChanges, AfterViewInit {\n  @Input() mode: 'simple' | 'advanced' = 'advanced';\n  @Input() columns: GridColumn[] = [];\n  @Input() data: any[] = [];\n  @Input() showIndex = false;\n  @Input() pageSize = 10;\n  @Input() showSearch = false;\n  @Input() searchPlaceholder = 'Search…';\n  @Input() showSelection = false;\n  @Input() trackBy: (row: any) => any = (row: any) => row;\n\n  @Output() selectionChange = new EventEmitter<any[]>();\n\n  @ViewChild(MatPaginator) paginator!: MatPaginator;\n  @ViewChild(MatSort) sort!: MatSort;\n\n  dataSource = new MatTableDataSource<any>([]);\n  selection = new SelectionModel<any>(true, []);\n\n  get displayedColumns(): string[] {\n    const cols = this.columns.map(c => c.key);\n    const prefix = this.showIndex ? ['_index'] : [];\n    const selection = this.showSelection ? ['_selection'] : [];\n    return [...selection, ...prefix, ...cols];\n  }\n\n  ngOnChanges(): void {\n    this.dataSource.data = this.data ?? [];\n  }\n\n  ngAfterViewInit(): void {\n    if (this.mode === 'advanced') {\n      this.dataSource.paginator = this.paginator;\n      this.dataSource.sort = this.sort;\n    }\n  }\n\n  applyFilter(event: Event): void {\n    const value = (event.target as HTMLInputElement).value;\n    this.dataSource.filter = value.trim().toLowerCase();\n    if (this.dataSource.paginator) {\n      this.dataSource.paginator.firstPage();\n    }\n  }\n\n  isAllSelected(): boolean {\n    return this.selection.selected.length === this.dataSource.data.length;\n  }\n\n  toggleAllRows(): void {\n    if (this.isAllSelected()) {\n      this.selection.clear();\n    } else {\n      this.selection.select(...this.dataSource.data);\n    }\n    this.selectionChange.emit(this.selection.selected);\n  }\n\n  toggleRow(row: any): void {\n    this.selection.toggle(row);\n    this.selectionChange.emit(this.selection.selected);\n  }\n}\n",
             "styleUrl": "./nx-grid.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -4407,11 +4497,11 @@
                         "name": "displayedColumns",
                         "type": "[]",
                         "returnType": "string[]",
-                        "line": 36
+                        "line": 42
                     }
                 }
             },
-            "templateData": "<div class=\"nx-grid\" [ngClass]=\"'nx-grid--' + mode\">\n\n  @if (mode === 'advanced' && showSearch) {\n    <div class=\"nx-grid__search\">\n      <mat-form-field appearance=\"outline\" class=\"search-field\">\n        <mat-label>{{ searchPlaceholder }}</mat-label>\n        <input matInput (keyup)=\"applyFilter($event)\" />\n        <mat-icon matSuffix>search</mat-icon>\n      </mat-form-field>\n    </div>\n  }\n\n  <div class=\"nx-grid__table\">\n    <table\n      mat-table\n      [dataSource]=\"dataSource\"\n      matSort\n      class=\"nx-grid-table\">\n\n      <ng-container matColumnDef=\"_index\">\n        <th mat-header-cell *matHeaderCellDef class=\"index-col\">#</th>\n        <td mat-cell *matCellDef=\"let i = index\" class=\"index-col\">{{ i + 1 }}</td>\n      </ng-container>\n\n      @for (col of columns; track col.key) {\n        <ng-container [matColumnDef]=\"col.key\">\n          <th mat-header-cell *matHeaderCellDef\n              [mat-sort-header]=\"mode === 'advanced' && col.sortable ? col.key : ''\"\n              [disabled]=\"mode !== 'advanced' || !col.sortable\"\n              [style.width]=\"col.width\">\n            {{ col.header }}\n          </th>\n          <td mat-cell *matCellDef=\"let row\">\n            @switch (col.type) {\n              @case ('status')   { <nx-status-chip [status]=\"row[col.key]\"></nx-status-chip> }\n              @case ('badge')    { <nx-badge [label]=\"row[col.key]\"></nx-badge> }\n              @case ('currency') { {{ row[col.key] | currency }} }\n              @default           { {{ row[col.key] }} }\n            }\n          </td>\n        </ng-container>\n      }\n\n      <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n      <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n      <tr *matNoDataRow>\n        <td [attr.colspan]=\"displayedColumns.length\">\n          @if (mode === 'simple') {\n            <nx-empty-state></nx-empty-state>\n          } @else {\n            <nx-empty-state message=\"No records found\"></nx-empty-state>\n          }\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  @if (mode === 'advanced') {\n    <mat-paginator\n      [pageSize]=\"pageSize\"\n      [pageSizeOptions]=\"[10, 25, 50, 100]\"\n      showFirstLastButtons>\n    </mat-paginator>\n  }\n\n</div>\n"
+            "templateData": "<div class=\"nx-grid\" [ngClass]=\"'nx-grid--' + mode\">\n\n  @if (mode === 'advanced' && showSearch) {\n    <div class=\"nx-grid__search\">\n      <mat-form-field appearance=\"outline\" class=\"search-field\">\n        <mat-label>{{ searchPlaceholder }}</mat-label>\n        <input matInput (keyup)=\"applyFilter($event)\" />\n        <mat-icon matSuffix>search</mat-icon>\n      </mat-form-field>\n    </div>\n  }\n\n  <div class=\"nx-grid__table\">\n    <table\n      mat-table\n      [dataSource]=\"dataSource\"\n      matSort\n      class=\"nx-grid-table\">\n\n      <ng-container matColumnDef=\"_selection\">\n        <th mat-header-cell *matHeaderCellDef class=\"selection-col\">\n          <mat-checkbox [checked]=\"isAllSelected()\" [indeterminate]=\"selection.hasValue() && !isAllSelected()\" (change)=\"toggleAllRows()\"></mat-checkbox>\n        </th>\n        <td mat-cell *matCellDef=\"let row\" class=\"selection-col\">\n          <mat-checkbox [checked]=\"selection.isSelected(row)\" (change)=\"toggleRow(row)\"></mat-checkbox>\n        </td>\n      </ng-container>\n\n      <ng-container matColumnDef=\"_index\">\n        <th mat-header-cell *matHeaderCellDef class=\"index-col\">#</th>\n        <td mat-cell *matCellDef=\"let i = index\" class=\"index-col\">{{ i + 1 }}</td>\n      </ng-container>\n\n      @for (col of columns; track col.key) {\n        <ng-container [matColumnDef]=\"col.key\">\n          <th mat-header-cell *matHeaderCellDef\n              [mat-sort-header]=\"mode === 'advanced' && col.sortable ? col.key : ''\"\n              [disabled]=\"mode !== 'advanced' || !col.sortable\"\n              [style.width]=\"col.width\">\n            {{ col.header }}\n          </th>\n          <td mat-cell *matCellDef=\"let row\">\n            @switch (col.type) {\n              @case ('status')   { <nx-status-chip [status]=\"row[col.key]\"></nx-status-chip> }\n              @case ('badge')    { <nx-badge [label]=\"row[col.key]\"></nx-badge> }\n              @case ('currency') { {{ row[col.key] | currency }} }\n              @default           { {{ row[col.key] }} }\n            }\n          </td>\n        </ng-container>\n      }\n\n      <tr mat-header-row *matHeaderRowDef=\"displayedColumns; sticky: true\"></tr>\n      <tr mat-row *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n      <tr *matNoDataRow>\n        <td [attr.colspan]=\"displayedColumns.length\">\n          @if (mode === 'simple') {\n            <nx-empty-state></nx-empty-state>\n          } @else {\n            <nx-empty-state message=\"No records found\"></nx-empty-state>\n          }\n        </td>\n      </tr>\n    </table>\n  </div>\n\n  @if (mode === 'advanced') {\n    <mat-paginator\n      [pageSize]=\"pageSize\"\n      [pageSizeOptions]=\"[10, 25, 50, 100]\"\n      showFirstLastButtons>\n    </mat-paginator>\n  }\n\n</div>\n"
         },
         {
             "name": "NxPageHeaderComponent",
@@ -4478,6 +4568,81 @@
             "stylesData": "",
             "extends": [],
             "templateData": "<div class=\"nx-page-header\">\n  <nav class=\"breadcrumb\" *ngIf=\"breadcrumbs.length > 0\">\n    @for (crumb of breadcrumbs; track crumb.label; let last = $last) {\n      @if (!last) {\n        <a *ngIf=\"crumb.route\" [routerLink]=\"crumb.route\" class=\"crumb-link\">{{ crumb.label }}</a>\n        <span *ngIf=\"!crumb.route\" class=\"crumb-text\">{{ crumb.label }}</span>\n        <mat-icon class=\"crumb-sep\">chevron_right</mat-icon>\n      } @else {\n        <span class=\"crumb-current\">{{ crumb.label }}</span>\n      }\n    }\n  </nav>\n  <div class=\"header-row\">\n    <div>\n      <h1 class=\"page-title\">{{ title }}</h1>\n      <p class=\"page-subtitle\" *ngIf=\"subtitle\">{{ subtitle }}</p>\n    </div>\n    <ng-content select=\"[actions]\"></ng-content>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "NxSkeletonComponent",
+            "id": "component-NxSkeletonComponent-8bb39ae611ff182ccf3c0c7f682851709ae0bc7736f495462357f97837127b87ef893d813e82556a14b668634ab217772a5558f8ae58be17a0c3250d9ba6008f",
+            "file": "src/app/shared/components/data-display/nx-skeleton/nx-skeleton.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "nx-skeleton",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./nx-skeleton.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "count",
+                    "defaultValue": "1",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 11,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "height",
+                    "defaultValue": "'16px'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 13,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "\"card\" | \"table\" | \"text\" | \"circle\" | \"rect\"",
+                    "decorators": []
+                },
+                {
+                    "name": "width",
+                    "defaultValue": "'100%'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'nx-skeleton',\n  standalone: false,\n  templateUrl: './nx-skeleton.html',\n  styleUrl: './nx-skeleton.scss',\n})\nexport class NxSkeletonComponent {\n  @Input() type: 'card' | 'table' | 'text' | 'circle' | 'rect' = 'text';\n  @Input() count: number = 1;\n  @Input() width: string = '100%';\n  @Input() height: string = '16px';\n}\n",
+            "styleUrl": "./nx-skeleton.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"nx-skeleton\">\n  <ng-container [ngSwitch]=\"type\">\n    <ng-container *ngSwitchCase=\"'card'\">\n      <div class=\"nx-skeleton__item nx-skeleton--card\" *ngFor=\"let _ of [].constructor(count); index as i\">\n        <div class=\"nx-skeleton__header\"></div>\n        <div class=\"nx-skeleton__body\"></div>\n        <div class=\"nx-skeleton__footer\"></div>\n      </div>\n    </ng-container>\n\n    <ng-container *ngSwitchCase=\"'table'\">\n      <div class=\"nx-skeleton__item nx-skeleton--table\" *ngFor=\"let _ of [].constructor(count); index as i\">\n        <div class=\"nx-skeleton__table-header\">\n          <div class=\"nx-skeleton__th\" style=\"width: 30%\"></div>\n          <div class=\"nx-skeleton__th\" style=\"width: 20%\"></div>\n          <div class=\"nx-skeleton__th\" style=\"width: 25%\"></div>\n          <div class=\"nx-skeleton__th\" style=\"width: 25%\"></div>\n        </div>\n        <div class=\"nx-skeleton__table-row\" *ngFor=\"let _ of [].constructor(4)\">\n          <div class=\"nx-skeleton__td\" style=\"width: 30%\"></div>\n          <div class=\"nx-skeleton__td\" style=\"width: 20%\"></div>\n          <div class=\"nx-skeleton__td\" style=\"width: 25%\"></div>\n          <div class=\"nx-skeleton__td\" style=\"width: 25%\"></div>\n        </div>\n      </div>\n    </ng-container>\n\n    <ng-container *ngSwitchCase=\"'circle'\">\n      <div\n        class=\"nx-skeleton__item nx-skeleton--circle\"\n        *ngFor=\"let _ of [].constructor(count); index as i\"\n        [style.width]=\"width\"\n        [style.height]=\"width\"\n      ></div>\n    </ng-container>\n\n    <ng-container *ngSwitchCase=\"'rect'\">\n      <div\n        class=\"nx-skeleton__item nx-skeleton--rect\"\n        *ngFor=\"let _ of [].constructor(count); index as i\"\n        [style.width]=\"width\"\n        [style.height]=\"height\"\n      ></div>\n    </ng-container>\n\n    <ng-container *ngSwitchDefault>\n      <div\n        class=\"nx-skeleton__item nx-skeleton--text\"\n        *ngFor=\"let _ of [].constructor(count); index as i\"\n        [style.width]=\"width\"\n        [style.height]=\"height\"\n      ></div>\n    </ng-container>\n  </ng-container>\n</div>\n"
         },
         {
             "name": "NxStatusChipComponent",
@@ -4929,11 +5094,11 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<nx-page-header\n  title=\"{{ product?.name || 'Product Detail' }}\"\n  [breadcrumbs]=\"[\n    { label: 'Home', route: '/dashboard' },\n    { label: 'Inventory' },\n    { label: 'Products', route: '/inventory/products' },\n    { label: product?.sku || '' }\n  ]\">\n  <div actions>\n    <button mat-raised-button color=\"primary\" (click)=\"save()\">\n      <mat-icon>save</mat-icon> Save Changes\n    </button>\n    <button mat-stroked-button (click)=\"cancel()\">Cancel</button>\n  </div>\n</nx-page-header>\n\n<div class=\"page-content\" *ngIf=\"form\">\n  <mat-tab-group [(selectedIndex)]=\"activeTab\" class=\"detail-tabs\">\n    <mat-tab label=\"Details\">\n      <div class=\"tab-content\">\n        <form [formGroup]=\"form\">\n          <div class=\"form-grid\">\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>SKU <span class=\"req-mark\"> *</span></mat-label>\n              <input matInput formControlName=\"sku\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Product Name <span class=\"req-mark\"> *</span></mat-label>\n              <input matInput formControlName=\"name\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Category <span class=\"req-mark\"> *</span></mat-label>\n              <mat-select formControlName=\"category\">\n                <mat-option value=\"Bearings\">Bearings</mat-option>\n                <mat-option value=\"Seals\">Seals</mat-option>\n                <mat-option value=\"Fasteners\">Fasteners</mat-option>\n                <mat-option value=\"Motors\">Motors</mat-option>\n                <mat-option value=\"Piping\">Piping</mat-option>\n                <mat-option value=\"Lubricants\">Lubricants</mat-option>\n                <mat-option value=\"Safety\">Safety</mat-option>\n                <mat-option value=\"Electronics\">Electronics</mat-option>\n              </mat-select>\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Status <span class=\"req-mark\"> *</span></mat-label>\n              <mat-select formControlName=\"status\">\n                <mat-option value=\"active\">Active</mat-option>\n                <mat-option value=\"inactive\">Inactive</mat-option>\n                <mat-option value=\"draft\">Draft</mat-option>\n              </mat-select>\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Unit Price</mat-label>\n              <input matInput type=\"number\" formControlName=\"unitPrice\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Reorder Level</mat-label>\n              <input matInput type=\"number\" formControlName=\"reorderLevel\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Supplier</mat-label>\n              <input matInput formControlName=\"supplier\" />\n            </mat-form-field>\n          </div>\n        </form>\n      </div>\n    </mat-tab>\n\n    <mat-tab label=\"Stock\">\n      <div class=\"tab-content\">\n        <div class=\"stock-info\">\n          <div class=\"stock-stat\">\n            <span class=\"stock-stat__label\">Current Stock</span>\n            <span class=\"stock-stat__value\">{{ product?.stockQty }}</span>\n          </div>\n          <div class=\"stock-stat\">\n            <span class=\"stock-stat__label\">Reorder Level</span>\n            <span class=\"stock-stat__value\">{{ product?.reorderLevel }}</span>\n          </div>\n          <div class=\"stock-stat\">\n            <span class=\"stock-stat__label\">Status</span>\n            <nx-status-chip [status]=\"product!.stockQty > product!.reorderLevel ? 'active' : 'pending'\"></nx-status-chip>\n          </div>\n        </div>\n      </div>\n    </mat-tab>\n\n    <mat-tab label=\"History\">\n      <div class=\"tab-content\">\n        <p class=\"text-muted\">No history records available for this product.</p>\n      </div>\n    </mat-tab>\n  </mat-tab-group>\n</div>\n"
+            "templateData": "<nx-page-header\n  title=\"{{ product?.name || 'Product Detail' }}\"\n  [breadcrumbs]=\"[\n    { label: 'Home', route: '/dashboard' },\n    { label: 'Inventory' },\n    { label: 'Products', route: '/inventory/products' },\n    { label: product?.sku || '' }\n  ]\">\n  <div actions>\n    <button mat-raised-button color=\"primary\" (click)=\"save()\">\n      <mat-icon>save</mat-icon> Save Changes\n    </button>\n    <button mat-stroked-button (click)=\"cancel()\">Cancel</button>\n  </div>\n</nx-page-header>\n\n<div class=\"page-content\" *ngIf=\"form\">\n  <mat-tab-group [(selectedIndex)]=\"activeTab\" class=\"detail-tabs\">\n    <mat-tab label=\"Details\">\n      <nx-card class=\"tab-card\">\n        <form [formGroup]=\"form\" class=\"detail-form\">\n          <div class=\"form-grid\">\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>SKU <span class=\"req-mark\"> *</span></mat-label>\n              <input matInput formControlName=\"sku\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Product Name <span class=\"req-mark\"> *</span></mat-label>\n              <input matInput formControlName=\"name\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Category <span class=\"req-mark\"> *</span></mat-label>\n              <mat-select formControlName=\"category\">\n                <mat-option value=\"Bearings\">Bearings</mat-option>\n                <mat-option value=\"Seals\">Seals</mat-option>\n                <mat-option value=\"Fasteners\">Fasteners</mat-option>\n                <mat-option value=\"Motors\">Motors</mat-option>\n                <mat-option value=\"Piping\">Piping</mat-option>\n                <mat-option value=\"Lubricants\">Lubricants</mat-option>\n                <mat-option value=\"Safety\">Safety</mat-option>\n                <mat-option value=\"Electronics\">Electronics</mat-option>\n              </mat-select>\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Status <span class=\"req-mark\"> *</span></mat-label>\n              <mat-select formControlName=\"status\">\n                <mat-option value=\"active\">Active</mat-option>\n                <mat-option value=\"inactive\">Inactive</mat-option>\n                <mat-option value=\"draft\">Draft</mat-option>\n              </mat-select>\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Unit Price</mat-label>\n              <input matInput type=\"number\" formControlName=\"unitPrice\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Reorder Level</mat-label>\n              <input matInput type=\"number\" formControlName=\"reorderLevel\" />\n            </mat-form-field>\n            <mat-form-field appearance=\"outline\" nxFormField>\n              <mat-label>Supplier</mat-label>\n              <input matInput formControlName=\"supplier\" />\n            </mat-form-field>\n          </div>\n        </form>\n      </nx-card>\n    </mat-tab>\n\n    <mat-tab label=\"Stock\">\n      <nx-card class=\"tab-card\">\n        <div class=\"stock-info\">\n          <div class=\"stock-stat\">\n            <span class=\"stock-stat__label\">Current Stock</span>\n            <span class=\"stock-stat__value\">{{ product?.stockQty }}</span>\n          </div>\n          <div class=\"stock-stat\">\n            <span class=\"stock-stat__label\">Reorder Level</span>\n            <span class=\"stock-stat__value\">{{ product?.reorderLevel }}</span>\n          </div>\n          <div class=\"stock-stat\">\n            <span class=\"stock-stat__label\">Status</span>\n            <nx-status-chip [status]=\"product!.stockQty > product!.reorderLevel ? 'active' : 'pending'\"></nx-status-chip>\n          </div>\n        </div>\n      </nx-card>\n    </mat-tab>\n\n    <mat-tab label=\"History\">\n      <nx-card class=\"tab-card\">\n        <p class=\"text-muted\">No history records available for this product.</p>\n      </nx-card>\n    </mat-tab>\n  </mat-tab-group>\n</div>\n"
         },
         {
             "name": "ProductListComponent",
-            "id": "component-ProductListComponent-7773fd824b4489e9783ff9518aa7c1a368248b775af694bb23f8ea47c3dd5bf7ffc1a874381843181a65d28a4c3dfcb24790b0000c9b47239bbea1387da9a570",
+            "id": "component-ProductListComponent-aefe83f1469ef955390ee434ded4edb1224122feee492d5af52ccbec5e5d8ea807c967b97f81c67834628e90e9f2e75c39a3d3dd22ae6bb406627802517ddb03",
             "file": "src/app/features/inventory/product-list/product-list.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -4960,7 +5125,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 18
+                    "line": 17
                 },
                 {
                     "name": "products",
@@ -4972,17 +5137,6 @@
                     "optional": false,
                     "description": "",
                     "line": 15
-                },
-                {
-                    "name": "selectedProducts",
-                    "defaultValue": "[]",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Product[]",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 16
                 }
             ],
             "methodsClass": [
@@ -4992,9 +5146,41 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 34,
+                    "line": 33,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "onSelectionChange",
+                    "args": [
+                        {
+                            "name": "selected",
+                            "type": "Product[]",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 46,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "selected",
+                            "type": "Product[]",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 },
                 {
                     "name": "openAddProductDialog",
@@ -5002,7 +5188,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 38,
+                    "line": 37,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -5016,7 +5202,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { Product } from '../models';\nimport { InventoryService } from '../inventory.service';\nimport { ProductAddDialogComponent } from '../product-add-dialog/product-add-dialog';\nimport { GridColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';\n\n@Component({\n  selector: 'app-product-list',\n  standalone: false,\n  templateUrl: './product-list.html',\n  styleUrl: './product-list.scss',\n})\nexport class ProductListComponent implements OnInit {\n  products: Product[] = [];\n  selectedProducts: Product[] = [];\n\n  columns: GridColumn[] = [\n    { key: 'sku', header: 'SKU', sortable: true, width: '120px' },\n    { key: 'name', header: 'Product Name', sortable: true },\n    { key: 'category', header: 'Category', sortable: true, width: '130px' },\n    { key: 'status', header: 'Status', type: 'status', sortable: true, width: '100px' },\n    { key: 'stockQty', header: 'Stock Qty', sortable: true, width: '100px', type: 'number' },\n    { key: 'reorderLevel', header: 'Reorder', width: '90px', type: 'number' },\n    { key: 'unitPrice', header: 'Unit Price', type: 'currency', sortable: true, width: '110px' },\n    { key: 'supplier', header: 'Supplier', sortable: true },\n  ];\n\n  constructor(\n    private service: InventoryService,\n    private dialog: MatDialog,\n  ) {}\n\n  ngOnInit(): void {\n    this.service.getProducts().subscribe(p => (this.products = p));\n  }\n\n  openAddProductDialog(): void {\n    const ref = this.dialog.open(ProductAddDialogComponent, { width: '600px' });\n    ref.afterClosed().subscribe(result => {\n      if (result) {\n        this.service.getProducts().subscribe(p => (this.products = p));\n      }\n    });\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { MatDialog } from '@angular/material/dialog';\nimport { Product } from '../models';\nimport { InventoryService } from '../inventory.service';\nimport { ProductAddDialogComponent } from '../product-add-dialog/product-add-dialog';\nimport { GridColumn } from '../../../shared/components/data-display/nx-grid/nx-grid';\n\n@Component({\n  selector: 'app-product-list',\n  standalone: false,\n  templateUrl: './product-list.html',\n  styleUrl: './product-list.scss',\n})\nexport class ProductListComponent implements OnInit {\n  products: Product[] = [];\n\n  columns: GridColumn[] = [\n    { key: 'sku', header: 'SKU', sortable: true, width: '120px' },\n    { key: 'name', header: 'Product Name', sortable: true },\n    { key: 'category', header: 'Category', sortable: true, width: '130px' },\n    { key: 'status', header: 'Status', type: 'status', sortable: true, width: '100px' },\n    { key: 'stockQty', header: 'Stock Qty', sortable: true, width: '100px', type: 'number' },\n    { key: 'reorderLevel', header: 'Reorder', width: '90px', type: 'number' },\n    { key: 'unitPrice', header: 'Unit Price', type: 'currency', sortable: true, width: '110px' },\n    { key: 'supplier', header: 'Supplier', sortable: true },\n  ];\n\n  constructor(\n    private service: InventoryService,\n    private dialog: MatDialog,\n  ) {}\n\n  ngOnInit(): void {\n    this.service.getProducts().subscribe(p => (this.products = p));\n  }\n\n  openAddProductDialog(): void {\n    const ref = this.dialog.open(ProductAddDialogComponent, { width: '600px' });\n    ref.afterClosed().subscribe(result => {\n      if (result) {\n        this.service.getProducts().subscribe(p => (this.products = p));\n      }\n    });\n  }\n\n  onSelectionChange(selected: Product[]): void {\n    // selection handled by nx-grid; add side-effects here if needed\n  }\n}\n",
             "styleUrl": "./product-list.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -5044,7 +5230,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 27,
+                "line": 26,
                 "jsdoctags": [
                     {
                         "name": "service",
@@ -5074,7 +5260,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<nx-page-header\n  title=\"Products\"\n  subtitle=\"Manage product inventory\"\n  [breadcrumbs]=\"[{ label: 'Home', route: '/dashboard' }, { label: 'Inventory' }, { label: 'Products' }]\">\n</nx-page-header>\n\n<div class=\"page-content\">\n  <nx-action-bar>\n    <button mat-raised-button color=\"primary\" (click)=\"openAddProductDialog()\">\n      <mat-icon>add</mat-icon> New Product\n    </button>\n    <button mat-stroked-button>\n      <mat-icon>upload</mat-icon> Import\n    </button>\n    <button mat-stroked-button>\n      <mat-icon>download</mat-icon> Export\n    </button>\n    <span class=\"flex-1\"></span>\n    <mat-form-field appearance=\"outline\" class=\"filter-field\">\n      <mat-label>Filter by status</mat-label>\n      <mat-select>\n        <mat-option value=\"\">All</mat-option>\n        <mat-option value=\"active\">Active</mat-option>\n        <mat-option value=\"inactive\">Inactive</mat-option>\n        <mat-option value=\"draft\">Draft</mat-option>\n      </mat-select>\n    </mat-form-field>\n  </nx-action-bar>\n\n  <nx-grid\n    [columns]=\"columns\"\n    [data]=\"products\"\n    [showSearch]=\"true\"\n    searchPlaceholder=\"Search products by name or SKU…\"\n    [pageSize]=\"10\">\n  </nx-grid>\n</div>\n"
+            "templateData": "<nx-page-header\n  title=\"Products\"\n  subtitle=\"Manage product inventory\"\n  [breadcrumbs]=\"[{ label: 'Home', route: '/dashboard' }, { label: 'Inventory' }, { label: 'Products' }]\">\n</nx-page-header>\n\n<div class=\"page-content\">\n  <nx-action-bar>\n    <button mat-raised-button color=\"primary\" (click)=\"openAddProductDialog()\">\n      <mat-icon>add</mat-icon> New Product\n    </button>\n    <button mat-stroked-button>\n      <mat-icon>upload</mat-icon> Import\n    </button>\n    <button mat-stroked-button>\n      <mat-icon>download</mat-icon> Export\n    </button>\n    <span class=\"flex-1\"></span>\n    <mat-form-field appearance=\"outline\" class=\"filter-field\">\n      <mat-label>Filter by status</mat-label>\n      <mat-select>\n        <mat-option value=\"\">All</mat-option>\n        <mat-option value=\"active\">Active</mat-option>\n        <mat-option value=\"inactive\">Inactive</mat-option>\n        <mat-option value=\"draft\">Draft</mat-option>\n      </mat-select>\n    </mat-form-field>\n  </nx-action-bar>\n\n  <nx-grid\n    [columns]=\"columns\"\n    [data]=\"products\"\n    [showSearch]=\"true\"\n    searchPlaceholder=\"Search products by name or SKU…\"\n    [showSelection]=\"true\"\n    (selectionChange)=\"onSelectionChange($event)\"\n    [pageSize]=\"10\">\n  </nx-grid>\n</div>\n"
         },
         {
             "name": "PurchaseOrderAddDialogComponent",
@@ -7902,13 +8088,13 @@
         },
         {
             "name": "SharedModule",
-            "id": "module-SharedModule-72d0cf313c4526c9403de7068099bcf4057b2804f45d48b64baba895e328952abd8d0a5e4deb805e9f9d1322432be690d810752bdf3065ff3070ad7dfea19ad1",
+            "id": "module-SharedModule-a7ceb783a520669fa9488ce1e0cdf359a3380088055a380b2c852a6717bb770096444f2109c9cd6c4ec9b6ef5dc5fdae2d171a4a98ad1799dd5a5bc812a0c7e5",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/shared/shared-module.ts",
             "methods": [],
-            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { RouterModule } from '@angular/router';\nimport { ReactiveFormsModule, FormsModule } from '@angular/forms';\n\nimport { MatTableModule } from '@angular/material/table';\nimport { MatPaginatorModule } from '@angular/material/paginator';\nimport { MatSortModule } from '@angular/material/sort';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatSelectModule } from '@angular/material/select';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatChipsModule } from '@angular/material/chips';\nimport { MatCardModule } from '@angular/material/card';\nimport { MatTabsModule } from '@angular/material/tabs';\nimport { MatCheckboxModule } from '@angular/material/checkbox';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { MatNativeDateModule } from '@angular/material/core';\nimport { MatSlideToggleModule } from '@angular/material/slide-toggle';\nimport { MatDialogModule } from '@angular/material/dialog';\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\nimport { MatTooltipModule } from '@angular/material/tooltip';\nimport { MatMenuModule } from '@angular/material/menu';\nimport { MatDividerModule } from '@angular/material/divider';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { MatBadgeModule } from '@angular/material/badge';\nimport { MatListModule } from '@angular/material/list';\nimport { MatExpansionModule } from '@angular/material/expansion';\nimport { MatAutocompleteModule } from '@angular/material/autocomplete';\nimport { MatStepperModule } from '@angular/material/stepper';\n\nimport { NxPageHeaderComponent } from './components/layout/nx-page-header/nx-page-header';\nimport { NxActionBarComponent } from './components/layout/nx-action-bar/nx-action-bar';\nimport { NxCardComponent } from './components/layout/nx-card/nx-card';\nimport { NxGridComponent } from './components/data-display/nx-grid/nx-grid';\nimport { NxBadgeComponent } from './components/data-display/nx-badge/nx-badge';\nimport { NxStatusChipComponent } from './components/data-display/nx-status-chip/nx-status-chip';\nimport { NxEmptyStateComponent } from './components/data-display/nx-empty-state/nx-empty-state';\nimport { NxFormFieldDirective } from './directives/nx-form-field.directive';\nimport { NxDialogFormWrapperComponent } from './components/form/nx-dialog-form-wrapper/nx-dialog-form-wrapper';\nimport { StatusLabelPipe } from './pipes/status-label.pipe';\nimport { TruncatePipe } from './pipes/truncate.pipe';\nimport { HighlightDirective } from './directives/highlight.directive';\n\nconst MATERIAL_MODULES = [\n  MatTableModule, MatPaginatorModule, MatSortModule,\n  MatFormFieldModule, MatInputModule, MatSelectModule,\n  MatButtonModule, MatIconModule, MatChipsModule,\n  MatCardModule, MatTabsModule, MatCheckboxModule,\n  MatDatepickerModule, MatNativeDateModule,\n  MatSlideToggleModule, MatDialogModule, MatSnackBarModule,\n  MatProgressSpinnerModule, MatTooltipModule, MatMenuModule,\n  MatDividerModule, MatToolbarModule, MatBadgeModule,\n  MatListModule, MatExpansionModule, MatAutocompleteModule,\n  MatStepperModule,\n];\n\n@NgModule({\n  declarations: [\n    NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,\n    NxGridComponent, NxBadgeComponent, NxStatusChipComponent,\n    NxEmptyStateComponent,\n    NxFormFieldDirective, NxDialogFormWrapperComponent,\n    StatusLabelPipe, TruncatePipe, HighlightDirective,\n  ],\n  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES],\n  exports: [\n    CommonModule, RouterModule, ReactiveFormsModule, FormsModule,\n    ...MATERIAL_MODULES,\n    NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,\n    NxGridComponent, NxBadgeComponent, NxStatusChipComponent,\n    NxEmptyStateComponent,\n    NxFormFieldDirective, NxDialogFormWrapperComponent,\n    StatusLabelPipe, TruncatePipe, HighlightDirective,\n  ],\n})\nexport class SharedModule {}\n",
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { RouterModule } from '@angular/router';\nimport { ReactiveFormsModule, FormsModule } from '@angular/forms';\n\nimport { MatTableModule } from '@angular/material/table';\nimport { MatPaginatorModule } from '@angular/material/paginator';\nimport { MatSortModule } from '@angular/material/sort';\nimport { MatFormFieldModule } from '@angular/material/form-field';\nimport { MatInputModule } from '@angular/material/input';\nimport { MatSelectModule } from '@angular/material/select';\nimport { MatButtonModule } from '@angular/material/button';\nimport { MatIconModule } from '@angular/material/icon';\nimport { MatChipsModule } from '@angular/material/chips';\nimport { MatCardModule } from '@angular/material/card';\nimport { MatTabsModule } from '@angular/material/tabs';\nimport { MatCheckboxModule } from '@angular/material/checkbox';\nimport { MatDatepickerModule } from '@angular/material/datepicker';\nimport { MatNativeDateModule } from '@angular/material/core';\nimport { MatSlideToggleModule } from '@angular/material/slide-toggle';\nimport { MatDialogModule } from '@angular/material/dialog';\nimport { MatSnackBarModule } from '@angular/material/snack-bar';\nimport { MatProgressSpinnerModule } from '@angular/material/progress-spinner';\nimport { MatTooltipModule } from '@angular/material/tooltip';\nimport { MatMenuModule } from '@angular/material/menu';\nimport { MatDividerModule } from '@angular/material/divider';\nimport { MatToolbarModule } from '@angular/material/toolbar';\nimport { MatBadgeModule } from '@angular/material/badge';\nimport { MatListModule } from '@angular/material/list';\nimport { MatExpansionModule } from '@angular/material/expansion';\nimport { MatAutocompleteModule } from '@angular/material/autocomplete';\nimport { MatStepperModule } from '@angular/material/stepper';\n\nimport { NxPageHeaderComponent } from './components/layout/nx-page-header/nx-page-header';\nimport { NxActionBarComponent } from './components/layout/nx-action-bar/nx-action-bar';\nimport { NxCardComponent } from './components/layout/nx-card/nx-card';\nimport { NxGridComponent } from './components/data-display/nx-grid/nx-grid';\nimport { NxBadgeComponent } from './components/data-display/nx-badge/nx-badge';\nimport { NxStatusChipComponent } from './components/data-display/nx-status-chip/nx-status-chip';\nimport { NxEmptyStateComponent } from './components/data-display/nx-empty-state/nx-empty-state';\nimport { NxSkeletonComponent } from './components/data-display/nx-skeleton/nx-skeleton';\nimport { NxFormFieldDirective } from './directives/nx-form-field.directive';\nimport { NxDialogFormWrapperComponent } from './components/form/nx-dialog-form-wrapper/nx-dialog-form-wrapper';\nimport { StatusLabelPipe } from './pipes/status-label.pipe';\nimport { TruncatePipe } from './pipes/truncate.pipe';\nimport { HighlightDirective } from './directives/highlight.directive';\n\nconst MATERIAL_MODULES = [\n  MatTableModule, MatPaginatorModule, MatSortModule,\n  MatFormFieldModule, MatInputModule, MatSelectModule,\n  MatButtonModule, MatIconModule, MatChipsModule,\n  MatCardModule, MatTabsModule, MatCheckboxModule,\n  MatDatepickerModule, MatNativeDateModule,\n  MatSlideToggleModule, MatDialogModule, MatSnackBarModule,\n  MatProgressSpinnerModule, MatTooltipModule, MatMenuModule,\n  MatDividerModule, MatToolbarModule, MatBadgeModule,\n  MatListModule, MatExpansionModule, MatAutocompleteModule,\n  MatStepperModule,\n];\n\n@NgModule({\n  declarations: [\n    NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,\n    NxGridComponent, NxBadgeComponent, NxStatusChipComponent,\n    NxEmptyStateComponent, NxSkeletonComponent,\n    NxFormFieldDirective, NxDialogFormWrapperComponent,\n    StatusLabelPipe, TruncatePipe, HighlightDirective,\n  ],\n  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule, ...MATERIAL_MODULES],\n  exports: [\n    CommonModule, RouterModule, ReactiveFormsModule, FormsModule,\n    ...MATERIAL_MODULES,\n    NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,\n    NxGridComponent, NxBadgeComponent, NxStatusChipComponent,\n    NxEmptyStateComponent, NxSkeletonComponent,\n    NxFormFieldDirective, NxDialogFormWrapperComponent,\n    StatusLabelPipe, TruncatePipe, HighlightDirective,\n  ],\n})\nexport class SharedModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -7943,6 +8129,9 @@
                         },
                         {
                             "name": "NxPageHeaderComponent"
+                        },
+                        {
+                            "name": "NxSkeletonComponent"
                         },
                         {
                             "name": "NxStatusChipComponent"
@@ -7988,6 +8177,9 @@
                         },
                         {
                             "name": "NxPageHeaderComponent"
+                        },
+                        {
+                            "name": "NxSkeletonComponent"
                         },
                         {
                             "name": "NxStatusChipComponent"
@@ -8528,64 +8720,16 @@
                 "filename": "src/app/app-routing-module.ts"
             },
             {
-                "name": "DashboardComponent",
-                "kind": "component",
-                "path": "",
-                "filename": "src/app/features/dashboard/dashboard-routing-module.ts"
-            },
-            {
                 "name": "InventoryLayoutComponent",
                 "kind": "component",
                 "path": "",
                 "filename": "src/app/features/inventory/inventory-routing-module.ts"
             },
             {
-                "name": "ReportsDashboardComponent",
+                "name": "DashboardComponent",
                 "kind": "component",
                 "path": "",
-                "filename": "src/app/features/reports/reports-routing-module.ts"
-            },
-            {
-                "name": "InventoryReportComponent",
-                "kind": "component",
-                "path": "inventory",
-                "filename": "src/app/features/reports/reports-routing-module.ts"
-            },
-            {
-                "name": "PurchaseReportComponent",
-                "kind": "component",
-                "path": "purchasing",
-                "filename": "src/app/features/reports/reports-routing-module.ts"
-            },
-            {
-                "name": "PurchaseReportComponent",
-                "kind": "component",
-                "path": "suppliers",
-                "filename": "src/app/features/reports/reports-routing-module.ts"
-            },
-            {
-                "name": "CustomReportComponent",
-                "kind": "component",
-                "path": "custom",
-                "filename": "src/app/features/reports/reports-routing-module.ts"
-            },
-            {
-                "name": "GeneralSettingsComponent",
-                "kind": "component",
-                "path": "general",
-                "filename": "src/app/features/settings/settings-routing-module.ts"
-            },
-            {
-                "name": "UsersRolesComponent",
-                "kind": "component",
-                "path": "users",
-                "filename": "src/app/features/settings/settings-routing-module.ts"
-            },
-            {
-                "name": "AuditLogComponent",
-                "kind": "component",
-                "path": "audit",
-                "filename": "src/app/features/settings/settings-routing-module.ts"
+                "filename": "src/app/features/dashboard/dashboard-routing-module.ts"
             },
             {
                 "name": "PurchaseOrderListComponent",
@@ -8618,6 +8762,36 @@
                 "filename": "src/app/features/purchasing/purchasing-routing-module.ts"
             },
             {
+                "name": "ReportsDashboardComponent",
+                "kind": "component",
+                "path": "",
+                "filename": "src/app/features/reports/reports-routing-module.ts"
+            },
+            {
+                "name": "InventoryReportComponent",
+                "kind": "component",
+                "path": "inventory",
+                "filename": "src/app/features/reports/reports-routing-module.ts"
+            },
+            {
+                "name": "PurchaseReportComponent",
+                "kind": "component",
+                "path": "purchasing",
+                "filename": "src/app/features/reports/reports-routing-module.ts"
+            },
+            {
+                "name": "PurchaseReportComponent",
+                "kind": "component",
+                "path": "suppliers",
+                "filename": "src/app/features/reports/reports-routing-module.ts"
+            },
+            {
+                "name": "CustomReportComponent",
+                "kind": "component",
+                "path": "custom",
+                "filename": "src/app/features/reports/reports-routing-module.ts"
+            },
+            {
                 "name": "SupplierListComponent",
                 "kind": "component",
                 "path": "list",
@@ -8640,6 +8814,24 @@
                 "kind": "component",
                 "path": "performance",
                 "filename": "src/app/features/suppliers/suppliers-routing-module.ts"
+            },
+            {
+                "name": "GeneralSettingsComponent",
+                "kind": "component",
+                "path": "general",
+                "filename": "src/app/features/settings/settings-routing-module.ts"
+            },
+            {
+                "name": "UsersRolesComponent",
+                "kind": "component",
+                "path": "users",
+                "filename": "src/app/features/settings/settings-routing-module.ts"
+            },
+            {
+                "name": "AuditLogComponent",
+                "kind": "component",
+                "path": "audit",
+                "filename": "src/app/features/settings/settings-routing-module.ts"
             },
             {
                 "name": "AppRoutingModule",
@@ -9303,7 +9495,7 @@
                 "linktype": "component",
                 "name": "NxGridComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/14",
+                "coverageCount": "0/21",
                 "status": "low"
             },
             {
@@ -9323,6 +9515,15 @@
                 "name": "TableColumn",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/shared/components/data-display/nx-skeleton/nx-skeleton.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NxSkeletonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {

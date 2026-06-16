@@ -32,6 +32,8 @@
     [data]="products"
     [showSearch]="true"
     searchPlaceholder="Search products by name or SKU…"
+    [showSelection]="true"
+    (selectionChange)="onSelectionChange($event)"
     [pageSize]="10">
   </nx-grid>
 </div>

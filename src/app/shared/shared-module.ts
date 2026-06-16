@@ -38,6 +38,7 @@ import { NxGridComponent } from './components/data-display/nx-grid/nx-grid';
 import { NxBadgeComponent } from './components/data-display/nx-badge/nx-badge';
 import { NxStatusChipComponent } from './components/data-display/nx-status-chip/nx-status-chip';
 import { NxEmptyStateComponent } from './components/data-display/nx-empty-state/nx-empty-state';
+import { NxSkeletonComponent } from './components/data-display/nx-skeleton/nx-skeleton';
 import { NxFormFieldDirective } from './directives/nx-form-field.directive';
 import { NxDialogFormWrapperComponent } from './components/form/nx-dialog-form-wrapper/nx-dialog-form-wrapper';
 import { StatusLabelPipe } from './pipes/status-label.pipe';
@@ -61,7 +62,7 @@ const MATERIAL_MODULES = [
   declarations: [
     NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,
     NxGridComponent, NxBadgeComponent, NxStatusChipComponent,
-    NxEmptyStateComponent,
+    NxEmptyStateComponent, NxSkeletonComponent,
     NxFormFieldDirective, NxDialogFormWrapperComponent,
     StatusLabelPipe, TruncatePipe, HighlightDirective,
   ],
@@ -71,7 +72,7 @@ const MATERIAL_MODULES = [
     ...MATERIAL_MODULES,
     NxPageHeaderComponent, NxActionBarComponent, NxCardComponent,
     NxGridComponent, NxBadgeComponent, NxStatusChipComponent,
-    NxEmptyStateComponent,
+    NxEmptyStateComponent, NxSkeletonComponent,
     NxFormFieldDirective, NxDialogFormWrapperComponent,
     StatusLabelPipe, TruncatePipe, HighlightDirective,
   ],

@@ -5,7 +5,7 @@
       <mat-form-field appearance="outline" class="search-field">
         <mat-label>{{ searchPlaceholder }}</mat-label>
         <input matInput (keyup)="applyFilter($event)" />
-        <mat-icon matSuffix>search</mat-icon>
+        <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
     </div>
   }
@@ -16,6 +16,15 @@
       [dataSource]="dataSource"
       matSort
       class="nx-grid-table">
+
+      <ng-container matColumnDef="_selection">
+        <th mat-header-cell *matHeaderCellDef class="selection-col">
+          <mat-checkbox [checked]="isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" (change)="toggleAllRows()"></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row" class="selection-col">
+          <mat-checkbox [checked]="selection.isSelected(row)" (change)="toggleRow(row)"></mat-checkbox>
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="_index">
         <th mat-header-cell *matHeaderCellDef class="index-col">#</th>
